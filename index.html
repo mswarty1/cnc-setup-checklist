@@ -64,7 +64,7 @@ Defaulting to \`null\`.`}dr(Dr,`getInvalidValueError`);var Or=vr,kr=br,Ar=_.forw
   </div>`}function Ir(e,t){let n=Fr(e,t),r=document.createElement(`div`);r.style.cssText=`position:fixed;left:-9999px;top:0;width:210mm;background:#fff;`,r.innerHTML=n,document.body.appendChild(r);function i(){let t=(e.jobInfo?.jobName||`checklist`).replace(/[^a-zA-Z0-9_-]/g,`_`);window.html2pdf().set({margin:[10,8,10,8],filename:`CNC_Checklist_${t}.pdf`,image:{type:`jpeg`,quality:.98},html2canvas:{scale:2,useCORS:!0,logging:!1},jsPDF:{unit:`mm`,format:`a4`,orientation:`portrait`},pagebreak:{mode:[`avoid-all`,`css`]}}).from(r.firstChild).save().then(()=>document.body.removeChild(r))}if(window.html2pdf)i();else{let e=document.createElement(`script`);e.src=`https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js`,e.onload=i,document.head.appendChild(e)}}function Lr({record:e,onSave:t,onBack:n,isSaved:r,shopName:i}){let{jobInfo:a,answers:o}=e,s=[];y.forEach(e=>e.steps.forEach(t=>{o[t.id]?.status===`flagged`&&s.push({section:e.title,step:t.label})}));function c(e,t){return t?e.type===`entry`||e.type===`multicheck`?t.value?.trim()?`📝`:`⬜`:t.status===`done`?`✓`:t.status===`na`?`➖`:t.status===`flagged`?`🚩`:`⬜`:`⬜`}function l(){let t=`CNC ROUTER PROJECT SETUP CHECKLIST\n${`─`.repeat(40)}\n`;t+=`Job: ${a?.jobName||`—`}\nOperator: ${a?.operator||`—`}\nMaterial: ${a?.material||`—`}\nDate: ${C(e.savedAt||Date.now())}\n`,s.length&&(t+=`
 ⚠ FLAGGED ITEMS:
 `,s.forEach(e=>{t+=`  🚩 [${e.section}] ${e.step}\n`})),y.forEach(e=>{t+=`\n${e.title.toUpperCase()}\n${`─`.repeat(30)}\n`,e.steps.forEach((e,n)=>{let r=o[e.id],i=S(e,r)?`✓`:r?.status===`flagged`?`🚩`:`☐`;t+=`${n+1}. ${i} ${e.label}`,(e.type===`entry`||e.type===`multicheck`)&&r?.value&&(t+=`\n   → ${r.value}`),t+=`
-`})});try{navigator.clipboard.writeText(t),alert(`Copied to clipboard!`)}catch{}}return(0,R.jsx)(`div`,{className:`flex-1 overflow-y-auto pb-24`,children:(0,R.jsxs)(`div`,{className:`p-4 space-y-3`,children:[(0,R.jsxs)(`div`,{className:`rounded-xl bg-gradient-to-br from-[#1B3A5C] to-[#2E6DA4] text-white p-4`,children:[(0,R.jsx)(`p`,{className:`font-mono font-bold text-sm mb-2`,children:`📋 JOB CHECKLIST REPORT`}),(0,R.jsx)(`p`,{className:`font-bold text-base`,children:a?.jobName||`—`}),a?.operator&&(0,R.jsxs)(`p`,{className:`text-sm opacity-85`,children:[`Operator: `,a.operator]}),a?.material&&(0,R.jsxs)(`p`,{className:`text-sm opacity-85`,children:[`Material: `,a.material]}),a?.file&&(0,R.jsxs)(`p`,{className:`text-sm opacity-85`,children:[`File: `,a.file]}),(0,R.jsx)(`p`,{className:`font-mono text-xs opacity-70 mt-2`,children:C(e.savedAt||Date.now())})]}),s.length>0&&(0,R.jsxs)(`div`,{className:`rounded-lg border border-red-500/40 bg-red-500/10 p-3`,children:[(0,R.jsxs)(`p`,{className:`text-xs font-bold text-red-400 mb-2`,children:[`⚠ `,s.length,` FLAGGED ITEM`,s.length>1?`S`:``,` — RESOLVE BEFORE RUNNING`]}),s.map((e,t)=>(0,R.jsxs)(`p`,{className:`text-xs text-red-400 mt-1`,children:[`🚩 [`,e.section,`] `,e.step]},t))]}),y.map(e=>(0,R.jsxs)(`div`,{children:[(0,R.jsxs)(`div`,{className:`flex items-center gap-2 px-3 py-2 rounded-t-lg text-sm font-bold`,style:{background:e.color+`22`,color:e.color},children:[e.icon,` `,e.title]}),(0,R.jsx)(`div`,{className:`border border-t-0 border-border rounded-b-lg overflow-hidden`,children:e.steps.map((e,t)=>{let n=o[e.id],r=n?.status===`flagged`;return(0,R.jsxs)(`div`,{className:$t(`flex items-start gap-2.5 px-3 py-2.5 border-b border-border last:border-0 text-sm`,r&&`bg-red-500/5`),children:[(0,R.jsx)(`span`,{className:`text-base shrink-0 mt-0.5`,children:c(e,n)}),(0,R.jsxs)(`div`,{className:`flex-1 min-w-0`,children:[(0,R.jsxs)(`p`,{className:`font-medium text-sm leading-snug`,children:[e.label,e.critical?` ★`:``]}),(e.type===`entry`||e.type===`multicheck`)&&n?.value&&(0,R.jsx)(`p`,{className:`text-xs text-blue-400 font-mono mt-0.5 break-all`,children:n.value}),n?.photo&&(0,R.jsx)(`img`,{src:n.photo,alt:`step`,className:`mt-1.5 max-h-24 rounded-md border border-border object-cover`})]})]},e.id)})})]},e.id)),(0,R.jsxs)(`div`,{className:`grid grid-cols-2 gap-2 pt-1`,children:[n&&(0,R.jsx)(z,{variant:`outline`,onClick:n,className:`font-mono text-xs font-bold tracking-wider`,children:`← BACK`}),t&&!r&&(0,R.jsx)(z,{className:`bg-green-500 hover:bg-green-600 text-black font-mono text-xs font-bold tracking-wider`,onClick:t,children:`💾 SAVE`}),r&&(0,R.jsx)(z,{variant:`outline`,className:`border-green-500 text-green-400 font-mono text-xs font-bold`,children:`✓ SAVED`}),(0,R.jsx)(z,{variant:`outline`,onClick:l,className:`font-mono text-xs font-bold tracking-wider`,children:`📋 COPY`}),(0,R.jsx)(z,{className:`bg-red-700 hover:bg-red-800 font-mono text-xs font-bold tracking-wider col-span-2`,onClick:()=>Ir(e,i),children:`📄 DOWNLOAD PDF`})]})]})})}function Rr({checklists:e,shopName:t,onDelete:n}){let[r,i]=(0,_.useState)(null);if(r!==null&&e[r])return(0,R.jsx)(Lr,{record:e[r],onBack:()=>i(null),shopName:t});let a=[...e].map((e,t)=>({...e,_i:t})).reverse();return(0,R.jsx)(`div`,{className:`flex-1 overflow-y-auto pb-24`,children:a.length===0?(0,R.jsxs)(`div`,{className:`flex flex-col items-center justify-center h-64 text-center px-6`,children:[(0,R.jsx)(`div`,{className:`text-5xl mb-4 opacity-40`,children:`📋`}),(0,R.jsx)(`p`,{className:`font-semibold text-base mb-1`,children:`No saved checklists yet`}),(0,R.jsx)(`p`,{className:`text-sm text-muted-foreground`,children:`Complete a checklist and save it — it will appear here`})]}):(0,R.jsx)(`div`,{className:`p-4 flex flex-col gap-3`,children:a.map(e=>{let t=y.flatMap(t=>t.steps.filter(t=>e.answers[t.id]?.status===`flagged`).map(e=>e.label)),r=y.flatMap(t=>t.steps.filter(t=>e.answers[t.id]?.photo)),a=y.reduce((e,t)=>e+t.steps.length,0),o=y.reduce((t,n)=>t+n.steps.filter(t=>S(t,e.answers[t.id])).length,0);return(0,R.jsxs)(`div`,{className:`bg-card border border-border rounded-xl p-4 active:scale-[0.99] transition-transform cursor-pointer`,onClick:()=>i(e._i),children:[(0,R.jsxs)(`div`,{className:`flex items-start justify-between gap-2 mb-1`,children:[(0,R.jsx)(`p`,{className:`font-bold text-sm leading-snug flex-1`,children:e.jobInfo?.jobName||`Unnamed Job`}),(0,R.jsx)(`p`,{className:`font-mono text-[10px] text-muted-foreground shrink-0`,children:C(e.savedAt)})]}),(0,R.jsxs)(`p`,{className:`text-xs text-muted-foreground mb-2`,children:[e.jobInfo?.operator||`—`,` · `,e.jobInfo?.material||`—`,` · `,o,`/`,a,` steps`]}),(0,R.jsxs)(`div`,{className:`flex flex-wrap gap-1.5`,children:[t.length===0&&(0,R.jsx)(cr,{variant:`outline`,className:`text-green-400 border-green-500/40 bg-green-500/10 text-[10px]`,children:`✓ NO FLAGS`}),t.slice(0,2).map((e,t)=>(0,R.jsxs)(cr,{variant:`outline`,className:`text-red-400 border-red-500/40 bg-red-500/10 text-[10px]`,children:[`🚩 `,e.slice(0,20),e.length>20?`…`:``]},t)),t.length>2&&(0,R.jsxs)(cr,{variant:`outline`,className:`text-red-400 border-red-500/40 text-[10px]`,children:[`+`,t.length-2,` flags`]}),r.length>0&&(0,R.jsxs)(cr,{variant:`outline`,className:`text-blue-400 border-blue-500/40 text-[10px]`,children:[`📷 `,r.length]}),e.jobInfo?.mode===`bitchange`&&(0,R.jsx)(cr,{variant:`outline`,className:`text-blue-400 border-blue-500/40 text-[10px]`,children:`🔧 BIT CHANGE`})]}),(0,R.jsx)(`button`,{className:`mt-2.5 text-[11px] text-red-400 border border-red-500/30 rounded-md px-2 py-1 hover:bg-red-500/10 transition-colors`,onClick:t=>{t.stopPropagation(),confirm(`Delete this checklist record?`)&&n(e._i)},children:`Delete`})]},e._i)})})})}function zr({prefs:e,checklists:t,onSetPrefs:n,onClearAll:r}){let[i,a]=(0,_.useState)(e.shopName);return(0,R.jsxs)(`div`,{className:`flex-1 overflow-y-auto pb-24 p-4 space-y-4`,children:[(0,R.jsxs)(`div`,{className:`bg-card border border-border rounded-xl overflow-hidden`,children:[(0,R.jsx)(`div`,{className:`px-4 py-3 border-b border-border font-mono text-xs font-bold text-blue-400 tracking-widest`,children:`⚙️ PREFERENCES`}),[{label:`Dark Mode`,sub:`Dark background for workshop use`,key:`darkMode`,value:e.darkMode},{label:`Sound Effects`,sub:`Tick sound on step completion`,key:`soundOn`,value:e.soundOn}].map(e=>(0,R.jsxs)(`div`,{className:`flex items-center justify-between px-4 py-3.5 border-b border-border last:border-0`,children:[(0,R.jsxs)(`div`,{children:[(0,R.jsx)(`p`,{className:`text-sm font-medium`,children:e.label}),(0,R.jsx)(`p`,{className:`text-xs text-muted-foreground`,children:e.sub})]}),(0,R.jsx)(or,{checked:e.value,onCheckedChange:t=>n({[e.key]:t})})]},e.key))]}),(0,R.jsxs)(`div`,{className:`bg-card border border-border rounded-xl overflow-hidden`,children:[(0,R.jsx)(`div`,{className:`px-4 py-3 border-b border-border font-mono text-xs font-bold text-blue-400 tracking-widest`,children:`🏭 SHOP / OPERATOR`}),(0,R.jsxs)(`div`,{className:`px-4 py-3.5`,children:[(0,R.jsx)(fn,{className:`text-xs font-bold text-muted-foreground uppercase tracking-wider block mb-2`,children:`Shop Name`}),(0,R.jsxs)(`div`,{className:`flex gap-2`,children:[(0,R.jsx)(nn,{className:`bg-background flex-1`,value:i,onChange:e=>a(e.target.value),placeholder:`e.g. Matt's CNC Workshop`}),(0,R.jsx)(z,{size:`sm`,className:`bg-blue-500 hover:bg-blue-600 shrink-0`,onClick:()=>n({shopName:i}),children:`Save`})]}),(0,R.jsx)(`p`,{className:`text-xs text-muted-foreground mt-1.5`,children:`Appears in PDF header`})]})]}),(0,R.jsxs)(`div`,{className:`bg-card border border-border rounded-xl overflow-hidden`,children:[(0,R.jsx)(`div`,{className:`px-4 py-3 border-b border-border font-mono text-xs font-bold text-blue-400 tracking-widest`,children:`📊 DATA`}),(0,R.jsxs)(`div`,{className:`flex items-center justify-between px-4 py-3.5 border-b border-border`,children:[(0,R.jsxs)(`div`,{children:[(0,R.jsx)(`p`,{className:`text-sm font-medium`,children:`Saved Checklists`}),(0,R.jsxs)(`p`,{className:`text-xs text-muted-foreground`,children:[t.length,` record`,t.length===1?``:`s`,` on this device`]})]}),(0,R.jsx)(`span`,{className:`font-mono text-lg font-bold text-blue-400`,children:t.length})]}),(0,R.jsxs)(`div`,{className:`flex items-center justify-between px-4 py-3.5`,children:[(0,R.jsxs)(`div`,{children:[(0,R.jsx)(`p`,{className:`text-sm font-medium text-red-400`,children:`Clear All History`}),(0,R.jsx)(`p`,{className:`text-xs text-muted-foreground`,children:`Permanently delete all saved checklists`})]}),(0,R.jsx)(z,{variant:`outline`,size:`sm`,className:`border-red-500/40 text-red-400 hover:bg-red-500/10`,onClick:()=>{confirm(`Delete ALL saved checklists? This cannot be undone.`)&&r()},children:`CLEAR`})]})]}),(0,R.jsxs)(`div`,{className:`bg-card border border-border rounded-xl overflow-hidden`,children:[(0,R.jsx)(`div`,{className:`px-4 py-3 border-b border-border font-mono text-xs font-bold text-blue-400 tracking-widest`,children:`ℹ️ ABOUT`}),(0,R.jsxs)(`div`,{className:`px-4 py-3.5 border-b border-border`,children:[(0,R.jsx)(`p`,{className:`text-sm font-medium`,children:`CNC Setup Checklist`}),]}),(0,R.jsxs)(`div`,{className:`flex items-center justify-between px-4 py-3.5`,children:[(0,R.jsx)(`p`,{className:`text-sm font-medium`,children:`Version`}),(0,R.jsx)(`span`,{className:`font-mono text-xs text-muted-foreground`,children:`2.0.0`})]})]})]})}function Br(){let{state:e,dispatch:t}=k(),{tab:n,session:r,checklists:i,prefs:a,showReport:o,reportSaved:s,justSaved:c}=e,l=[{id:`home`,icon:`🏠`,label:`HOME`},{id:`checklist`,icon:`✅`,label:`CHECKLIST`},{id:`history`,icon:`📋`,label:`HISTORY`},{id:`tools`,icon:`🔧`,label:`TOOLS`},{id:`settings`,icon:`⚙️`,label:`SETTINGS`}],u=0;if(r){let e=r.jobInfo?.mode===`bitchange`?y.map(e=>({...e,steps:e.steps.filter(e=>b.has(e.id))})).filter(e=>e.steps.length>0):y,t=e.reduce((e,t)=>e+t.steps.length,0),n=e.reduce((e,t)=>e+t.steps.filter(e=>S(e,r.answers[e.id])).length,0);u=t?Math.round(n/t*100):0}return(0,R.jsx)(`div`,{className:$t(a.darkMode?`dark`:``,`min-h-screen bg-background text-foreground`),children:(0,R.jsxs)(`div`,{className:`max-w-[430px] mx-auto min-h-screen flex flex-col`,children:[(0,R.jsxs)(`header`,{className:`bg-card border-b border-border px-4 py-3 sticky top-0 z-50`,children:[(0,R.jsxs)(`div`,{className:`flex items-center gap-2.5 mb-1.5`,children:[(0,R.jsx)(`span`,{className:`text-lg`,children:`⚙️`}),(0,R.jsxs)(`div`,{className:`flex-1 min-w-0`,children:[(0,R.jsx)(`p`,{className:`font-mono text-xs font-bold text-blue-400 tracking-widest`,children:`CNC SETUP CHECKLIST`}),r?.jobInfo?.jobName&&!o&&(0,R.jsx)(`p`,{className:`text-[10px] text-muted-foreground truncate`,children:r.jobInfo.jobName})]}),n===`checklist`&&r&&!o&&(0,R.jsx)(`button`,{className:`bg-muted border border-border rounded-lg w-8 h-8 flex items-center justify-center text-sm text-muted-foreground`,onClick:()=>t({type:`SHOW_REPORT`}),children:`📄`})]}),r&&!o&&(0,R.jsx)(`div`,{className:`h-1 bg-border rounded-full overflow-hidden`,children:(0,R.jsx)(`div`,{className:`h-full rounded-full transition-all duration-500 bg-gradient-to-r from-blue-500 to-violet-500`,style:{width:`${u}%`}})})]}),(0,R.jsxs)(`div`,{className:`flex-1 flex flex-col`,children:[n===`home`&&(0,R.jsx)(lr,{state:e,onStart:e=>t({type:`START`,jobInfo:e}),onResume:()=>t({type:`RESUME_DRAFT`}),onDiscardDraft:()=>t({type:`DISCARD_DRAFT`}),onDeleteTemplate:e=>t({type:`DELETE_TEMPLATE`,idx:e}),onSetPrefs:e=>t({type:`SET_PREFS`,prefs:e})}),n===`checklist`&&!r&&(0,R.jsxs)(`div`,{className:`flex-1 flex flex-col items-center justify-center p-8 text-center`,children:[(0,R.jsx)(`div`,{className:`text-6xl mb-4`,children:`🔧`}),(0,R.jsx)(`p`,{className:`text-base font-bold mb-2`,children:`No active job`}),(0,R.jsx)(`p`,{className:`text-sm text-muted-foreground mb-6`,children:`Start a new checklist from the Home tab`}),(0,R.jsx)(`button`,{className:`bg-blue-500 text-white font-mono font-bold text-sm px-8 py-3.5 rounded-xl`,onClick:()=>t({type:`SET_TAB`,tab:`home`}),children:`GO TO HOME`})]}),n===`checklist`&&r&&!o&&(0,R.jsx)(Pr,{answers:r.answers,jobInfo:r.jobInfo,soundOn:a.soundOn,onSetAnswer:(e,n)=>t({type:`SET_ANSWER`,id:e,answer:n}),onComplete:()=>t({type:`SHOW_REPORT`})}),n===`checklist`&&r&&o&&(0,R.jsx)(Lr,{record:{...r,savedAt:Date.now()},onSave:()=>t({type:`SAVE_REPORT`}),onBack:()=>t({type:`HIDE_REPORT`}),isSaved:s,shopName:a.shopName}),n===`history`&&(0,R.jsx)(Rr,{checklists:i,shopName:a.shopName,onDelete:e=>t({type:`DELETE_CHECKLIST`,idx:e})}),n===`tools`&&(0,R.jsxs)(`div`,{className:`flex-1 overflow-y-auto pb-24 p-4`,children:[(0,R.jsx)(`div`,{className:`font-mono text-xs font-bold text-foreground uppercase tracking-widest mb-4`,children:`🔧 TOOLS`}),(0,R.jsx)(`div`,{className:`space-y-4`,children:[
+`})});try{navigator.clipboard.writeText(t),alert(`Copied to clipboard!`)}catch{}}return(0,R.jsx)(`div`,{className:`flex-1 overflow-y-auto pb-24`,children:(0,R.jsxs)(`div`,{className:`p-4 space-y-3`,children:[(0,R.jsxs)(`div`,{className:`rounded-xl bg-gradient-to-br from-[#1B3A5C] to-[#2E6DA4] text-white p-4`,children:[(0,R.jsx)(`p`,{className:`font-mono font-bold text-sm mb-2`,children:`📋 JOB CHECKLIST REPORT`}),(0,R.jsx)(`p`,{className:`font-bold text-base`,children:a?.jobName||`—`}),a?.operator&&(0,R.jsxs)(`p`,{className:`text-sm opacity-85`,children:[`Operator: `,a.operator]}),a?.material&&(0,R.jsxs)(`p`,{className:`text-sm opacity-85`,children:[`Material: `,a.material]}),a?.file&&(0,R.jsxs)(`p`,{className:`text-sm opacity-85`,children:[`File: `,a.file]}),(0,R.jsx)(`p`,{className:`font-mono text-xs opacity-70 mt-2`,children:C(e.savedAt||Date.now())})]}),s.length>0&&(0,R.jsxs)(`div`,{className:`rounded-lg border border-red-500/40 bg-red-500/10 p-3`,children:[(0,R.jsxs)(`p`,{className:`text-xs font-bold text-red-400 mb-2`,children:[`⚠ `,s.length,` FLAGGED ITEM`,s.length>1?`S`:``,` — RESOLVE BEFORE RUNNING`]}),s.map((e,t)=>(0,R.jsxs)(`p`,{className:`text-xs text-red-400 mt-1`,children:[`🚩 [`,e.section,`] `,e.step]},t))]}),y.map(e=>(0,R.jsxs)(`div`,{children:[(0,R.jsxs)(`div`,{className:`flex items-center gap-2 px-3 py-2 rounded-t-lg text-sm font-bold`,style:{background:e.color+`22`,color:e.color},children:[e.icon,` `,e.title]}),(0,R.jsx)(`div`,{className:`border border-t-0 border-border rounded-b-lg overflow-hidden`,children:e.steps.map((e,t)=>{let n=o[e.id],r=n?.status===`flagged`;return(0,R.jsxs)(`div`,{className:$t(`flex items-start gap-2.5 px-3 py-2.5 border-b border-border last:border-0 text-sm`,r&&`bg-red-500/5`),children:[(0,R.jsx)(`span`,{className:`text-base shrink-0 mt-0.5`,children:c(e,n)}),(0,R.jsxs)(`div`,{className:`flex-1 min-w-0`,children:[(0,R.jsxs)(`p`,{className:`font-medium text-sm leading-snug`,children:[e.label,e.critical?` ★`:``]}),(e.type===`entry`||e.type===`multicheck`)&&n?.value&&(0,R.jsx)(`p`,{className:`text-xs text-blue-400 font-mono mt-0.5 break-all`,children:n.value}),n?.photo&&(0,R.jsx)(`img`,{src:n.photo,alt:`step`,className:`mt-1.5 max-h-24 rounded-md border border-border object-cover`})]})]},e.id)})})]},e.id)),(0,R.jsxs)(`div`,{className:`grid grid-cols-2 gap-2 pt-1`,children:[n&&(0,R.jsx)(z,{variant:`outline`,onClick:n,className:`font-mono text-xs font-bold tracking-wider`,children:`← BACK`}),t&&!r&&(0,R.jsx)(z,{className:`bg-green-500 hover:bg-green-600 text-black font-mono text-xs font-bold tracking-wider`,onClick:t,children:`💾 SAVE`}),r&&(0,R.jsx)(z,{variant:`outline`,className:`border-green-500 text-green-400 font-mono text-xs font-bold`,children:`✓ SAVED`}),(0,R.jsx)(z,{variant:`outline`,onClick:l,className:`font-mono text-xs font-bold tracking-wider`,children:`📋 COPY`}),(0,R.jsx)(z,{className:`bg-red-700 hover:bg-red-800 font-mono text-xs font-bold tracking-wider col-span-2`,onClick:()=>Ir(e,i),children:`📄 DOWNLOAD PDF`})]})]})})}function Rr({checklists:e,shopName:t,onDelete:n}){let[r,i]=(0,_.useState)(null);if(r!==null&&e[r])return(0,R.jsx)(Lr,{record:e[r],onBack:()=>i(null),shopName:t});let a=[...e].map((e,t)=>({...e,_i:t})).reverse();return(0,R.jsx)(`div`,{className:`flex-1 overflow-y-auto pb-24`,children:a.length===0?(0,R.jsxs)(`div`,{className:`flex flex-col items-center justify-center h-64 text-center px-6`,children:[(0,R.jsx)(`div`,{className:`text-5xl mb-4 opacity-40`,children:`📋`}),(0,R.jsx)(`p`,{className:`font-semibold text-base mb-1`,children:`No saved checklists yet`}),(0,R.jsx)(`p`,{className:`text-sm text-muted-foreground`,children:`Complete a checklist and save it — it will appear here`})]}):(0,R.jsx)(`div`,{className:`p-4 flex flex-col gap-3`,children:a.map(e=>{let t=y.flatMap(t=>t.steps.filter(t=>e.answers[t.id]?.status===`flagged`).map(e=>e.label)),r=y.flatMap(t=>t.steps.filter(t=>e.answers[t.id]?.photo)),a=y.reduce((e,t)=>e+t.steps.length,0),o=y.reduce((t,n)=>t+n.steps.filter(t=>S(t,e.answers[t.id])).length,0);return(0,R.jsxs)(`div`,{className:`bg-card border border-border rounded-xl p-4 active:scale-[0.99] transition-transform cursor-pointer`,onClick:()=>i(e._i),children:[(0,R.jsxs)(`div`,{className:`flex items-start justify-between gap-2 mb-1`,children:[(0,R.jsx)(`p`,{className:`font-bold text-sm leading-snug flex-1`,children:e.jobInfo?.jobName||`Unnamed Job`}),(0,R.jsx)(`p`,{className:`font-mono text-[10px] text-muted-foreground shrink-0`,children:C(e.savedAt)})]}),(0,R.jsxs)(`p`,{className:`text-xs text-muted-foreground mb-2`,children:[e.jobInfo?.operator||`—`,` · `,e.jobInfo?.material||`—`,` · `,o,`/`,a,` steps`]}),(0,R.jsxs)(`div`,{className:`flex flex-wrap gap-1.5`,children:[t.length===0&&(0,R.jsx)(cr,{variant:`outline`,className:`text-green-400 border-green-500/40 bg-green-500/10 text-[10px]`,children:`✓ NO FLAGS`}),t.slice(0,2).map((e,t)=>(0,R.jsxs)(cr,{variant:`outline`,className:`text-red-400 border-red-500/40 bg-red-500/10 text-[10px]`,children:[`🚩 `,e.slice(0,20),e.length>20?`…`:``]},t)),t.length>2&&(0,R.jsxs)(cr,{variant:`outline`,className:`text-red-400 border-red-500/40 text-[10px]`,children:[`+`,t.length-2,` flags`]}),r.length>0&&(0,R.jsxs)(cr,{variant:`outline`,className:`text-blue-400 border-blue-500/40 text-[10px]`,children:[`📷 `,r.length]}),e.jobInfo?.mode===`bitchange`&&(0,R.jsx)(cr,{variant:`outline`,className:`text-blue-400 border-blue-500/40 text-[10px]`,children:`🔧 BIT CHANGE`})]}),(0,R.jsx)(`button`,{className:`mt-2.5 text-[11px] text-red-400 border border-red-500/30 rounded-md px-2 py-1 hover:bg-red-500/10 transition-colors`,onClick:t=>{t.stopPropagation(),confirm(`Delete this checklist record?`)&&n(e._i)},children:`Delete`})]},e._i)})})})}function zr({prefs:e,checklists:t,onSetPrefs:n,onClearAll:r}){let[i,a]=(0,_.useState)(e.shopName);return(0,R.jsxs)(`div`,{className:`flex-1 overflow-y-auto pb-24 p-4 space-y-4`,children:[(0,R.jsxs)(`div`,{className:`bg-card border border-border rounded-xl overflow-hidden`,children:[(0,R.jsx)(`div`,{className:`px-4 py-3 border-b border-border font-mono text-xs font-bold text-blue-400 tracking-widest`,children:`⚙️ PREFERENCES`}),[{label:`Dark Mode`,sub:`Dark background for workshop use`,key:`darkMode`,value:e.darkMode},{label:`Sound Effects`,sub:`Tick sound on step completion`,key:`soundOn`,value:e.soundOn}].map(e=>(0,R.jsxs)(`div`,{className:`flex items-center justify-between px-4 py-3.5 border-b border-border last:border-0`,children:[(0,R.jsxs)(`div`,{children:[(0,R.jsx)(`p`,{className:`text-sm font-medium`,children:e.label}),(0,R.jsx)(`p`,{className:`text-xs text-muted-foreground`,children:e.sub})]}),(0,R.jsx)(or,{checked:e.value,onCheckedChange:t=>n({[e.key]:t})})]},e.key))]}),(0,R.jsxs)(`div`,{className:`bg-card border border-border rounded-xl overflow-hidden`,children:[(0,R.jsx)(`div`,{className:`px-4 py-3 border-b border-border font-mono text-xs font-bold text-blue-400 tracking-widest`,children:`🏭 SHOP / OPERATOR`}),(0,R.jsxs)(`div`,{className:`px-4 py-3.5`,children:[(0,R.jsx)(fn,{className:`text-xs font-bold text-muted-foreground uppercase tracking-wider block mb-2`,children:`Shop Name`}),(0,R.jsxs)(`div`,{className:`flex gap-2`,children:[(0,R.jsx)(nn,{className:`bg-background flex-1`,value:i,onChange:e=>a(e.target.value),placeholder:`e.g. Matt's CNC Workshop`}),(0,R.jsx)(z,{size:`sm`,className:`bg-blue-500 hover:bg-blue-600 shrink-0`,onClick:()=>n({shopName:i}),children:`Save`})]}),(0,R.jsx)(`p`,{className:`text-xs text-muted-foreground mt-1.5`,children:`Appears in PDF header`})]})]}),(0,R.jsxs)(`div`,{className:`bg-card border border-border rounded-xl overflow-hidden`,children:[(0,R.jsx)(`div`,{className:`px-4 py-3 border-b border-border font-mono text-xs font-bold text-blue-400 tracking-widest`,children:`📊 DATA`}),(0,R.jsxs)(`div`,{className:`flex items-center justify-between px-4 py-3.5 border-b border-border`,children:[(0,R.jsxs)(`div`,{children:[(0,R.jsx)(`p`,{className:`text-sm font-medium`,children:`Saved Checklists`}),(0,R.jsxs)(`p`,{className:`text-xs text-muted-foreground`,children:[t.length,` record`,t.length===1?``:`s`,` on this device`]})]}),(0,R.jsx)(`span`,{className:`font-mono text-lg font-bold text-blue-400`,children:t.length})]}),(0,R.jsxs)(`div`,{className:`flex items-center justify-between px-4 py-3.5`,children:[(0,R.jsxs)(`div`,{children:[(0,R.jsx)(`p`,{className:`text-sm font-medium text-red-400`,children:`Clear All History`}),(0,R.jsx)(`p`,{className:`text-xs text-muted-foreground`,children:`Permanently delete all saved checklists`})]}),(0,R.jsx)(z,{variant:`outline`,size:`sm`,className:`border-red-500/40 text-red-400 hover:bg-red-500/10`,onClick:()=>{confirm(`Delete ALL saved checklists? This cannot be undone.`)&&r()},children:`CLEAR`})]})]})]})}function Br(){let{state:e,dispatch:t}=k(),{tab:n,session:r,checklists:i,prefs:a,showReport:o,reportSaved:s,justSaved:c}=e,l=[{id:`home`,icon:`🏠`,label:`HOME`},{id:`checklist`,icon:`✅`,label:`CHECKLIST`},{id:`history`,icon:`📋`,label:`HISTORY`},{id:`tools`,icon:`🔧`,label:`TOOLS`},{id:`settings`,icon:`⚙️`,label:`SETTINGS`}],u=0;if(r){let e=r.jobInfo?.mode===`bitchange`?y.map(e=>({...e,steps:e.steps.filter(e=>b.has(e.id))})).filter(e=>e.steps.length>0):y,t=e.reduce((e,t)=>e+t.steps.length,0),n=e.reduce((e,t)=>e+t.steps.filter(e=>S(e,r.answers[e.id])).length,0);u=t?Math.round(n/t*100):0}return(0,R.jsx)(`div`,{className:$t(a.darkMode?`dark`:``,`min-h-screen bg-background text-foreground`),children:(0,R.jsxs)(`div`,{className:`max-w-[430px] mx-auto min-h-screen flex flex-col`,children:[(0,R.jsxs)(`header`,{className:`bg-card border-b border-border px-4 py-3 sticky top-0 z-50`,children:[(0,R.jsxs)(`div`,{className:`flex items-center gap-2.5 mb-1.5`,children:[(0,R.jsx)(`span`,{className:`text-lg`,children:`⚙️`}),(0,R.jsxs)(`div`,{className:`flex-1 min-w-0`,children:[(0,R.jsx)(`p`,{className:`font-mono text-xs font-bold text-blue-400 tracking-widest`,children:`CNC SETUP CHECKLIST`}),r?.jobInfo?.jobName&&!o&&(0,R.jsx)(`p`,{className:`text-[10px] text-muted-foreground truncate`,children:r.jobInfo.jobName})]}),n===`checklist`&&r&&!o&&(0,R.jsx)(`button`,{className:`bg-muted border border-border rounded-lg w-8 h-8 flex items-center justify-center text-sm text-muted-foreground`,onClick:()=>t({type:`SHOW_REPORT`}),children:`📄`})]}),r&&!o&&(0,R.jsx)(`div`,{className:`h-1 bg-border rounded-full overflow-hidden`,children:(0,R.jsx)(`div`,{className:`h-full rounded-full transition-all duration-500 bg-gradient-to-r from-blue-500 to-violet-500`,style:{width:`${u}%`}})})]}),(0,R.jsxs)(`div`,{className:`flex-1 flex flex-col`,children:[n===`home`&&(0,R.jsx)(lr,{state:e,onStart:e=>t({type:`START`,jobInfo:e}),onResume:()=>t({type:`RESUME_DRAFT`}),onDiscardDraft:()=>t({type:`DISCARD_DRAFT`}),onDeleteTemplate:e=>t({type:`DELETE_TEMPLATE`,idx:e}),onSetPrefs:e=>t({type:`SET_PREFS`,prefs:e})}),n===`checklist`&&!r&&(0,R.jsxs)(`div`,{className:`flex-1 flex flex-col items-center justify-center p-8 text-center`,children:[(0,R.jsx)(`div`,{className:`text-6xl mb-4`,children:`🔧`}),(0,R.jsx)(`p`,{className:`text-base font-bold mb-2`,children:`No active job`}),(0,R.jsx)(`p`,{className:`text-sm text-muted-foreground mb-6`,children:`Start a new checklist from the Home tab`}),(0,R.jsx)(`button`,{className:`bg-blue-500 text-white font-mono font-bold text-sm px-8 py-3.5 rounded-xl`,onClick:()=>t({type:`SET_TAB`,tab:`home`}),children:`GO TO HOME`})]}),n===`checklist`&&r&&!o&&(0,R.jsx)(Pr,{answers:r.answers,jobInfo:r.jobInfo,soundOn:a.soundOn,onSetAnswer:(e,n)=>t({type:`SET_ANSWER`,id:e,answer:n}),onComplete:()=>t({type:`SHOW_REPORT`})}),n===`checklist`&&r&&o&&(0,R.jsx)(Lr,{record:{...r,savedAt:Date.now()},onSave:()=>t({type:`SAVE_REPORT`}),onBack:()=>t({type:`HIDE_REPORT`}),isSaved:s,shopName:a.shopName}),n===`history`&&(0,R.jsx)(Rr,{checklists:i,shopName:a.shopName,onDelete:e=>t({type:`DELETE_CHECKLIST`,idx:e})}),n===`tools`&&(0,R.jsxs)(`div`,{className:`flex-1 overflow-y-auto pb-24 p-4`,children:[(0,R.jsx)(`div`,{className:`font-mono text-xs font-bold text-foreground uppercase tracking-widest mb-4`,children:`🔧 TOOLS`}),(0,R.jsx)(`div`,{className:`space-y-4`,children:[
 (0,R.jsx)(`div`,{className:`border border-border rounded-xl p-4 space-y-3`,children:[
   (0,R.jsx)(`h3`,{className:`font-semibold text-foreground`,children:`Import Tool Database`}),
   (0,R.jsx)(`p`,{className:`text-xs text-muted-foreground`,children:`Supports .vtdb (Vectric), .json, .csv formats`}),
@@ -488,5 +488,241 @@ summary, details summary {
   document.addEventListener('click', () => setTimeout(fix, 150));
 })();
 </script>
-  </body>
+  <!-- ===== CHIPLOAD CALCULATOR (drop-in patch) =====
+     Paste this whole <script> block just before </body> in CNC Setup Checklist index.html.
+     Self-contained: adds a CHIPLOAD tab to the bottom nav + a full-screen calculator.
+     Reads (never writes) localStorage "cnc_tools"; stores its own inputs under "cnc_chipload".
+     Safe to re-apply: guarded by window.__cnChipload. -->
+<script>
+(function chiploadCalculator() {
+  if (window.__cnChipload) return;
+  window.__cnChipload = true;
+
+  var STORE = 'cnc_chipload';
+  var MM = 25.4;
+
+  // Typical chiploads (source: IDC Woodcraft chipload calculator reference tables).
+  // Inch ranges in inches, metric ranges in mm. Diameter keys: inch size.
+  var REF = [
+    { key: '0.125', label: '1/8"',  mm: 3.175,  mat: { Hardwood: [.003,.005], Softwood: [.004,.006], MDF: [.004,.007] },
+                                                 matMm: { Hardwood: [.076,.127], Softwood: [.102,.152], MDF: [.102,.178] } },
+    { key: '0.25',  label: '1/4"',  mm: 6.35,   mat: { Hardwood: [.009,.011], Softwood: [.011,.013], MDF: [.013,.016] },
+                                                 matMm: { Hardwood: [.229,.279], Softwood: [.279,.330], MDF: [.330,.406] } },
+    { key: '0.375', label: '3/8"',  mm: 9.525,  mat: { Hardwood: [.015,.018], Softwood: [.018,.020], MDF: [.020,.023] },
+                                                 matMm: { Hardwood: [.381,.457], Softwood: [.457,.508], MDF: [.508,.584] } },
+    { key: '0.5',   label: '1/2"',  mm: 12.7,   mat: { Hardwood: [.019,.021], Softwood: [.021,.023], MDF: [.025,.027] },
+                                                 matMm: { Hardwood: [.483,.533], Softwood: [.533,.584], MDF: [.635,.686] } }
+  ];
+  var MATS = ['Hardwood', 'Softwood', 'MDF'];
+
+  var state = { feed: 2540, units: 'mm', rpm: 18000, flutes: 2, mat: 'Hardwood', dia: '0.25' };
+  try { var saved = JSON.parse(localStorage.getItem(STORE) || 'null'); if (saved) for (var k in saved) state[k] = saved[k]; } catch (e) {}
+  function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {} }
+
+  function getTools() { try { return JSON.parse(localStorage.getItem('cnc_tools') || '[]'); } catch (e) { return []; } }
+  function num(v) { var n = parseFloat(v); return isFinite(n) ? n : NaN; }
+
+  // ---- maths -------------------------------------------------------------
+  // chipload = feed / (rpm * flutes), in the same length unit as the feed rate.
+  function chipload(feed, rpm, flutes) {
+    if (!(feed > 0) || !(rpm > 0) || !(flutes > 0)) return NaN;
+    return feed / (rpm * flutes);
+  }
+  function rng(v, u) { return (u === 'in' ? v.toFixed(3) : v.toFixed(3)).replace(/^0/, ''); }
+  function fmt(v, units) { return units === 'in' ? v.toFixed(4) : v.toFixed(3); }
+
+  // ---- tool parsing (cnc_tools records: {name, dia, type, flutes, notes}) -----
+  function diaToMm(d) {
+    if (!d) return NaN;
+    var s = String(d).toLowerCase(), n = num(s);
+    if (isNaN(n)) return NaN;
+    return /in|"/.test(s) ? n * MM : n; // bare numbers are mm (manual-entry placeholder says mm)
+  }
+  function nearestRef(mm) {
+    var best = REF[1], bd = Infinity;
+    REF.forEach(function (r) { var d = Math.abs(r.mm - mm); if (d < bd) { bd = d; best = r; } });
+    return best;
+  }
+  function parseNotes(notes) {
+    var out = {}, n = String(notes || '');
+    var f = n.match(/Feed:\s*([\d.]+)\s*(in\/min|mm\/min|mm\/s)?/i);
+    if (f) {
+      var v = num(f[1]), u = (f[2] || '').toLowerCase();
+      if (u === 'mm/s') { v *= 60; u = 'mm/min'; }
+      if (v > 0) { out.feed = v; out.units = u === 'in/min' ? 'in' : 'mm'; }
+    }
+    var s = n.match(/Spindle:\s*([\d.]+)/i);
+    if (s && num(s[1]) > 0) out.rpm = num(s[1]);
+    return out;
+  }
+
+  // ---- UI ----------------------------------------------------------------
+  var css = '' +
+  '#cl-panel{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;bottom:calc(64px + env(safe-area-inset-bottom,0px));' +
+  'background:#000;color:#fff;overflow-y:auto;z-index:60;padding:16px 16px 24px;display:none;-webkit-overflow-scrolling:touch}' +
+  '#cl-panel.cl-open{display:block}' +
+  '#cl-panel .cl-h2{font:700 12px ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;margin:0 0 14px}' +
+  '#cl-panel .cl-h3{font:700 11px ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:#999;margin:20px 0 8px}' +
+  '#cl-panel .cl-card{border:1px solid #262626;background:#0a0a0a;border-radius:12px;padding:14px}' +
+  '#cl-panel .cl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}' +
+  '#cl-panel label{display:block;font-size:11px;color:#999;margin-bottom:4px}' +
+  '#cl-panel input,#cl-panel select{width:100%;padding:10px;border-radius:8px;background:#161616;border:1px solid #333;color:#fff;font-size:15px;min-height:42px}' +
+  '#cl-panel .cl-result{text-align:center;padding:18px 10px}' +
+  '#cl-panel .cl-big{font:800 34px ui-monospace,monospace}' +
+  '#cl-panel .cl-sub{font-size:12px;color:#999;margin-top:4px}' +
+  '#cl-panel .cl-badge{display:inline-block;margin-top:10px;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid #444}' +
+  '#cl-panel .cl-ok{background:#fff;color:#000;border-color:#fff}' +
+  '#cl-panel table{width:100%;border-collapse:collapse;font-size:12px}' +
+  '#cl-panel th,#cl-panel td{padding:7px 6px;border-bottom:1px solid #1f1f1f;text-align:left}' +
+  '#cl-panel th{color:#999;font-weight:600}' +
+  '#cl-panel tr.cl-hi td{background:#161616;font-weight:700}' +
+  '#cl-panel .cl-note{font-size:11px;color:#777;margin-top:10px;line-height:1.4}';
+
+  var panel, navBtn;
+
+  function build() {
+    var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+    panel = document.createElement('div'); panel.id = 'cl-panel';
+    panel.innerHTML =
+      '<div class="cl-h2">⚙ Chipload Calculator</div>' +
+      '<div class="cl-card">' +
+        '<label for="cl-tool">Load from Tool Database (optional)</label>' +
+        '<select id="cl-tool"></select>' +
+        '<div class="cl-grid" style="margin-top:12px">' +
+          '<div><label for="cl-feed">Feed rate</label><input id="cl-feed" type="number" inputmode="decimal" min="0"></div>' +
+          '<div><label for="cl-units">Units</label><select id="cl-units"><option value="in">inches/min</option><option value="mm">mm/min</option></select></div>' +
+          '<div><label for="cl-rpm">RPM</label><input id="cl-rpm" type="number" inputmode="numeric" min="0"></div>' +
+          '<div><label for="cl-flutes">Flutes</label><input id="cl-flutes" type="number" inputmode="numeric" min="1" step="1"></div>' +
+          '<div><label for="cl-dia">Cutter diameter</label><select id="cl-dia"></select></div>' +
+          '<div><label for="cl-mat">Material</label><select id="cl-mat"></select></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="cl-card cl-result" style="margin-top:12px"><div class="cl-big" id="cl-out">—</div>' +
+        '<div class="cl-sub" id="cl-alt"></div><div id="cl-badge"></div><div class="cl-sub" id="cl-range"></div></div>' +
+      '<div class="cl-h3">Typical chiploads</div><div class="cl-card" id="cl-table"></div>' +
+      '<div class="cl-note">Chipload = feed rate ÷ (RPM × flutes). Reference ranges are general guides for wood and MDF; ' +
+      'start in the middle and adjust for your machine, bit and finish.</div>';
+    document.body.appendChild(panel);
+
+    var dia = panel.querySelector('#cl-dia');
+    dia.innerHTML = REF.map(function (r) { return '<option value="' + r.key + '">' + r.label + ' (' + r.mm + ' mm)</option>'; }).join('');
+    panel.querySelector('#cl-mat').innerHTML = MATS.map(function (m) { return '<option>' + m + '</option>'; }).join('');
+
+    ['cl-feed', 'cl-rpm', 'cl-flutes'].forEach(function (id) { panel.querySelector('#' + id).addEventListener('input', readInputs); });
+    ['cl-dia', 'cl-mat'].forEach(function (id) { panel.querySelector('#' + id).addEventListener('change', readInputs); });
+    panel.querySelector('#cl-units').addEventListener('change', function (e) {
+      var to = e.target.value, f = num(state.feed);
+      if (!isNaN(f) && to !== state.units) {
+        f = to === 'mm' ? f * MM : f / MM;
+        state.feed = to === 'mm' ? Math.round(f * 10) / 10 : Math.round(f * 100) / 100;
+      }
+      state.units = to; writeInputs(); render();
+    });
+    panel.querySelector('#cl-tool').addEventListener('change', onToolPick);
+    writeInputs(); render();
+  }
+
+  function readInputs() {
+    state.feed = panel.querySelector('#cl-feed').value;
+    state.rpm = panel.querySelector('#cl-rpm').value;
+    state.flutes = panel.querySelector('#cl-flutes').value;
+    state.dia = panel.querySelector('#cl-dia').value;
+    state.mat = panel.querySelector('#cl-mat').value;
+    render();
+  }
+  function writeInputs() {
+    panel.querySelector('#cl-feed').value = state.feed;
+    panel.querySelector('#cl-units').value = state.units;
+    panel.querySelector('#cl-rpm').value = state.rpm;
+    panel.querySelector('#cl-flutes').value = state.flutes;
+    panel.querySelector('#cl-dia').value = state.dia;
+    panel.querySelector('#cl-mat').value = state.mat;
+  }
+
+  function refreshTools() {
+    var tools = getTools(), sel = panel.querySelector('#cl-tool');
+    var html = '<option value="">' + (tools.length ? '-- Select tool --' : 'No tools saved yet') + '</option>';
+    tools.forEach(function (t, i) {
+      html += '<option value="' + i + '">' + esc((t.name || t.type || 'Tool') + (t.dia ? ' (' + t.dia + ')' : '')) + '</option>';
+    });
+    var cur = sel.value; sel.innerHTML = html; sel.value = cur;
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  function onToolPick(e) {
+    var t = getTools()[e.target.value]; if (!t) return;
+    var mm = diaToMm(t.dia); if (!isNaN(mm)) state.dia = nearestRef(mm).key;
+    if (num(t.flutes) > 0) state.flutes = num(t.flutes);
+    var p = parseNotes(t.notes);
+    if (p.rpm) state.rpm = p.rpm;
+    if (p.feed) { state.feed = p.feed; state.units = p.units; }
+    writeInputs(); render();
+  }
+
+  function render() {
+    var feed = num(state.feed), rpm = num(state.rpm), fl = num(state.flutes), u = state.units;
+    var out = panel.querySelector('#cl-out'), alt = panel.querySelector('#cl-alt'),
+        badge = panel.querySelector('#cl-badge'), range = panel.querySelector('#cl-range');
+    var c = chipload(feed, rpm, fl);
+    var ref = REF.filter(function (r) { return r.key === state.dia; })[0] || REF[1];
+    var r = (u === 'in' ? ref.mat : ref.matMm)[state.mat];
+
+    if (isNaN(c)) {
+      out.textContent = '—'; alt.textContent = 'Enter feed rate, RPM and flutes (all above 0)';
+      badge.innerHTML = ''; range.textContent = '';
+    } else {
+      out.textContent = fmt(c, u) + ' ' + u;
+      alt.textContent = '= ' + fmt(u === 'in' ? c * MM : c / MM, u === 'in' ? 'mm' : 'in') + ' ' + (u === 'in' ? 'mm' : 'in') + ' per tooth';
+      var tol = 0.0005 * (u === 'in' ? 1 : MM);
+      var status = c < r[0] - 1e-12 ? 'Below range — rubbing / heat risk' : c > r[1] + 1e-12 ? 'Above range — load / breakage risk' : 'Within typical range';
+      badge.innerHTML = '<span class="cl-badge' + (status.indexOf('Within') === 0 ? ' cl-ok' : '') + '">' + status + '</span>';
+      range.textContent = ref.label + ' ' + state.mat + ': ' + rng(r[0], u) + '–' + rng(r[1], u) + ' ' + u;
+    }
+    // reference table in the current unit
+    var h = '<table><tr><th>Dia</th>' + MATS.map(function (m) { return '<th>' + m + '</th>'; }).join('') + '</tr>';
+    REF.forEach(function (rw) {
+      h += '<tr' + (rw.key === state.dia ? ' class="cl-hi"' : '') + '><td>' + (u === 'in' ? rw.label : rw.mm) + '</td>' +
+        MATS.map(function (m) { var v = (u === 'in' ? rw.mat : rw.matMm)[m]; return '<td>' + rng(v[0], u) + '–' + rng(v[1], u) + '</td>'; }).join('') + '</tr>';
+    });
+    panel.querySelector('#cl-table').innerHTML = h + '</table>';
+    save();
+  }
+
+  // ---- nav integration ----------------------------------------------------
+  function ensureNavButton() {
+    var nav = document.querySelector('nav.fixed.bottom-0');
+    if (!nav || nav.querySelector('#cl-navbtn')) return;
+    var proto = nav.querySelector('button'); if (!proto) return;
+    navBtn = proto.cloneNode(true);
+    navBtn.id = 'cl-navbtn';
+    var spans = navBtn.querySelectorAll('span');
+    if (spans[0]) spans[0].textContent = '⚙';
+    if (spans[1]) spans[1].textContent = 'CHIPLOAD';
+    Array.prototype.slice.call(spans, 2).forEach(function (s) { s.remove(); }); // drop history dot etc.
+    navBtn.className = proto.className.replace(/text-blue-400/g, 'text-muted-foreground');
+    navBtn.onclick = null;
+    navBtn.addEventListener('click', function (ev) { ev.preventDefault(); ev.stopPropagation(); toggle(); }, true);
+    nav.appendChild(navBtn);
+    // any other nav tab closes the panel
+    nav.addEventListener('click', function (ev) {
+      if (ev.target.closest && ev.target.closest('#cl-navbtn')) return;
+      if (ev.target.closest && ev.target.closest('button')) close();
+    }, true);
+    setBtnState(panel.classList.contains('cl-open'));
+  }
+  function setBtnState(on) { if (navBtn) { navBtn.style.setProperty('color', on ? '#fff' : '', 'important'); } }
+  function open() { refreshTools(); panel.classList.add('cl-open'); setBtnState(true); }
+  function close() { panel.classList.remove('cl-open'); setBtnState(false); }
+  function toggle() { panel.classList.contains('cl-open') ? close() : open(); }
+
+  function init() {
+    build();
+    ensureNavButton();
+    new MutationObserver(ensureNavButton).observe(document.body, { childList: true, subtree: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+
+</body>
 </html>
