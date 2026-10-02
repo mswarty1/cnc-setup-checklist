@@ -547,5 +547,59 @@ input[type="checkbox"] {
   });
 })();
 </script>
+  <script>
+(function normaliseIcons() {
+  function run() {
+    document.querySelectorAll('*').forEach(function(el) {
+      if (el.children.length > 0) return;
+      var text = el.textContent;
+      if (!text) return;
+
+      if (text.trim() === '✅' || text.trim() === '☑' || text.trim() === '✔') {
+        el.textContent = '✓';
+        el.style.setProperty('color', '#fff', 'important');
+        el.style.setProperty('font-size', '16px', 'important');
+        el.style.setProperty('font-weight', 'bold', 'important');
+      }
+
+      if (text.trim() === '📋') {
+        el.textContent = '✎';
+        el.style.setProperty('color', '#888', 'important');
+        el.style.setProperty('font-size', '16px', 'important');
+      }
+
+      if (text.trim() === '🔧' || text.trim() === '⚙️') {
+        var inToolsTab = el.closest('[data-tab="tools"]') || el.closest('#tools-section');
+        if (!inToolsTab) {
+          el.style.setProperty('display', 'none', 'important');
+        }
+      }
+
+      if (/^[📐📏🔩🪛🪚✂️🖊️🖋️]$/.test(text.trim())) {
+        el.style.setProperty('display', 'none', 'important');
+      }
+    });
+
+    document.querySelectorAll('*').forEach(function(el) {
+      if (el.children.length > 0) return;
+      if (el.textContent.trim() === '✓' || el.textContent.trim() === '✔') {
+        el.style.setProperty('color', '#fff', 'important');
+        el.style.setProperty('font-size', '16px', 'important');
+        el.style.setProperty('font-weight', '700', 'important');
+        el.style.setProperty('line-height', '1', 'important');
+      }
+    });
+  }
+
+  var tries = 0;
+  var iv = setInterval(function() {
+    tries++;
+    run();
+    if (tries > 30) clearInterval(iv);
+  }, 300);
+
+  document.addEventListener('click', function() { setTimeout(run, 100); });
+})();
+</script>
   </body>
 </html>
