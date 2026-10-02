@@ -87,94 +87,220 @@ Defaulting to \`null\`.`}dr(Dr,`getInvalidValueError`);var Or=vr,kr=br,Ar=_.forw
 </style>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* === FORCE BLACK & WHITE THEME === */
+/* === NUCLEAR BLACK & WHITE OVERRIDE === */
 *, *::before, *::after {
   --background: 0 0% 0% !important;
   --foreground: 0 0% 100% !important;
-  --card: 0 0% 8% !important;
+  --card: 0 0% 6% !important;
   --card-foreground: 0 0% 100% !important;
-  --popover: 0 0% 8% !important;
+  --popover: 0 0% 6% !important;
   --popover-foreground: 0 0% 100% !important;
   --primary: 0 0% 100% !important;
   --primary-foreground: 0 0% 0% !important;
-  --secondary: 0 0% 15% !important;
+  --secondary: 0 0% 12% !important;
   --secondary-foreground: 0 0% 100% !important;
-  --muted: 0 0% 15% !important;
+  --muted: 0 0% 12% !important;
   --muted-foreground: 0 0% 60% !important;
   --accent: 0 0% 15% !important;
   --accent-foreground: 0 0% 100% !important;
-  --destructive: 0 84% 60% !important;
+  --destructive: 0 0% 40% !important;
+  --destructive-foreground: 0 0% 100% !important;
   --border: 0 0% 20% !important;
-  --input: 0 0% 15% !important;
-  --ring: 0 0% 70% !important;
+  --input: 0 0% 10% !important;
+  --ring: 0 0% 80% !important;
+  --radius: 0.5rem !important;
 }
 
 html, body, #root {
-  background-color: #000 !important;
+  background: #000 !important;
+  color: #fff !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* Kill ALL blue colors */
+[class*="bg-blue"], [class*="text-blue"], [class*="border-blue"],
+[class*="bg-indigo"], [class*="text-indigo"], [class*="border-indigo"],
+[class*="bg-violet"], [class*="text-violet"],
+[class*="bg-purple"], [class*="text-purple"],
+[class*="bg-sky"], [class*="text-sky"], [class*="border-sky"],
+[class*="bg-cyan"], [class*="text-cyan"],
+[class*="ring-blue"], [class*="ring-indigo"] {
+  background-color: transparent !important;
+  color: #fff !important;
+  border-color: #333 !important;
+}
+
+/* Buttons */
+button, [role="button"], .btn {
+  background: #fff !important;
+  color: #000 !important;
+  border: 1px solid #fff !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em !important;
+  transition: all 0.15s ease !important;
+  border-radius: 6px !important;
+}
+button:hover, [role="button"]:hover {
+  background: #e0e0e0 !important;
+  color: #000 !important;
+}
+
+/* Ghost/outline/secondary buttons */
+button[class*="ghost"], button[class*="outline"], button[class*="secondary"],
+button[class*="variant-outline"], button[class*="variant-ghost"] {
+  background: transparent !important;
+  color: #fff !important;
+  border: 1px solid #444 !important;
+}
+button[class*="ghost"]:hover, button[class*="outline"]:hover {
+  background: #1a1a1a !important;
+  border-color: #888 !important;
+}
+
+/* Destructive / danger buttons */
+button[class*="destructive"] {
+  background: #333 !important;
+  color: #fff !important;
+  border-color: #555 !important;
+}
+
+/* Tabs */
+[role="tab"] {
+  color: #666 !important;
+  background: transparent !important;
+  border-bottom: 2px solid transparent !important;
+}
+[role="tab"][aria-selected="true"], [data-state="active"][role="tab"] {
+  color: #fff !important;
+  border-bottom-color: #fff !important;
+  background: transparent !important;
+}
+[role="tablist"] {
+  background: #0a0a0a !important;
+  border-bottom: 1px solid #222 !important;
+}
+
+/* Cards */
+[class*="Card"], .card, [class*="card"] {
+  background: #0d0d0d !important;
+  border: 1px solid #222 !important;
   color: #fff !important;
 }
 
-/* Override all background colors */
-[class*="bg-slate"], [class*="bg-blue"], [class*="bg-indigo"], [class*="bg-navy"] {
-  background-color: #111 !important;
+/* Badges */
+[class*="Badge"], [class*="badge"] {
+  background: #1a1a1a !important;
+  color: #ccc !important;
+  border: 1px solid #333 !important;
 }
 
-/* Cards and surfaces */
-.bg-card, [class*="bg-card"] { background-color: #111 !important; }
-.bg-background, [class*="bg-background"] { background-color: #000 !important; }
-
-/* Override blue/navy inline styles and gradient backgrounds */
-div[style*="background"] { background: #111 !important; }
-
-/* Bottom nav */
-nav, [role="navigation"] {
-  background-color: #0a0a0a !important;
-  border-top: 1px solid #333 !important;
+/* Inputs, textareas, selects */
+input, textarea, select, [class*="Input"] {
+  background: #0d0d0d !important;
+  color: #fff !important;
+  border: 1px solid #333 !important;
+  border-radius: 6px !important;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: #fff !important;
+  outline: none !important;
+  box-shadow: 0 0 0 1px #fff !important;
+}
+input::placeholder, textarea::placeholder {
+  color: #555 !important;
 }
 
-/* Buttons - primary should be white */
-button[class*="bg-primary"], .btn-primary {
-  background-color: #fff !important;
-  color: #000 !important;
+/* Labels */
+label {
+  color: #bbb !important;
 }
 
-/* The START FULL SETUP CHECKLIST button specifically */
-button[class*="w-full"] {
-  background-color: #fff !important;
-  color: #000 !important;
+/* Progress bars */
+[role="progressbar"] > * {
+  background: #fff !important;
+}
+[role="progressbar"] {
+  background: #1a1a1a !important;
+}
+
+/* Checkboxes and step indicators */
+[class*="CheckCircle"], [class*="check-circle"],
+svg[class*="check"], .step-done {
+  color: #fff !important;
+}
+
+/* Muted/secondary text */
+[class*="text-muted"], [class*="muted-foreground"],
+p.text-sm, span.text-sm {
+  color: #888 !important;
+}
+
+/* Bottom nav bar */
+nav, [class*="bottom-nav"], footer {
+  background: #0a0a0a !important;
+  border-top: 1px solid #222 !important;
+}
+nav button[class*="active"], nav button[aria-selected="true"] {
+  color: #fff !important;
+}
+nav button {
+  color: #555 !important;
+  background: transparent !important;
   border: none !important;
 }
 
-/* Input fields */
-input, textarea, select {
-  background-color: #1a1a1a !important;
-  border-color: #333 !important;
-  color: #fff !important;
-}
-
-/* Section headers/cards with colored backgrounds */
-[style*="color:#"], [style*="color: #"] {
-  color: #fff !important;
-}
-
-/* Override any gradient that might be navy/blue/purple */
-[style*="gradient"] {
+/* Alert / dialog */
+[role="alertdialog"], [role="dialog"], [class*="Dialog"] {
   background: #111 !important;
+  border: 1px solid #333 !important;
+  color: #fff !important;
 }
 
-/* Tab bar active state */
-[class*="text-primary"] { color: #fff !important; }
-[class*="text-muted"] { color: #888 !important; }
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
 
-/* Borders */
-[class*="border"] { border-color: #333 !important; }
-
-/* Section colored left borders - keep as white accent */
-[style*="borderLeft"], [style*="border-left"] {
-  border-left-color: #555 !important;
+/* Separator */
+[role="separator"], hr {
+  border-color: #222 !important;
+  background: #222 !important;
 }
 
-/* Toggle/switch - make it white when active */
+/* Header/hero area */
+header, [class*="header"] {
+  background: #000 !important;
+  border-bottom: 1px solid #1a1a1a !important;
+}
+
+/* Kill any remaining color utility classes */
+.text-primary { color: #fff !important; }
+.text-secondary { color: #aaa !important; }
+.bg-primary { background: #fff !important; color: #000 !important; }
+.bg-secondary { background: #111 !important; }
+.border-primary { border-color: #fff !important; }
+.text-gray-500, .text-gray-600 { color: #888 !important; }
+.text-gray-300, .text-gray-400 { color: #aaa !important; }
+.bg-gray-100 { background: #111 !important; }
+.bg-gray-200 { background: #1a1a1a !important; }
+.bg-gray-800, .bg-gray-900 { background: #0d0d0d !important; }
+.border-gray-200 { border-color: #222 !important; }
+.border-gray-700 { border-color: #333 !important; }
+
+/* Green/success colors -> white */
+[class*="text-green"], [class*="bg-green"] {
+  color: #fff !important;
+  background-color: transparent !important;
+}
+
+/* Active/selected states */
+[data-state="checked"], [aria-checked="true"] {
+  background: #fff !important;
+  border-color: #fff !important;
+}
+
+/* Toggle/switch */
 [role="switch"][data-state="checked"] {
   background-color: #fff !important;
 }
@@ -182,29 +308,9 @@ input, textarea, select {
   background-color: #333 !important;
 }
 
-/* Top bar / header */
-header, [class*="header"] {
-  background-color: #000 !important;
-  border-bottom-color: #333 !important;
-}
-
-/* Text colors */
-h1, h2, h3, h4, h5, h6 { color: #fff !important; }
-p, span, label { color: inherit !important; }
-
-/* Badge/pill elements */
-[class*="badge"], [class*="Badge"] {
-  background-color: #222 !important;
-  color: #fff !important;
-  border-color: #444 !important;
-}
-
-/* Progress bar */
-[role="progressbar"] > div {
-  background-color: #fff !important;
-}
-
-/* Checklist section colors - override the teal/purple/blue/red section accents */
+/* Inline style overrides for hard-coded colors */
+[style*="background"] { background: #111 !important; }
+[style*="gradient"] { background: #111 !important; }
 [style*="#16A085"], [style*="#8E44AD"], [style*="#2980B9"], [style*="#C0392B"] {
   background-color: #1a1a1a !important;
   color: #fff !important;
