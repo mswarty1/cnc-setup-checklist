@@ -385,6 +385,7 @@ summary, details summary {
 
     // 3. Ensure emoji icons hidden on checklist rows
     document.querySelectorAll('[class*="text-2xl"], [class*="text-xl"]').forEach(function(el) {
+      if (el.closest('nav')) return; // keep bottom-nav icons
       var text = el.textContent.trim();
       // If it's just an emoji, hide it
       if (/^[\u{1F300}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u.test(text) && text.length <= 3) {
@@ -427,6 +428,8 @@ summary, details summary {
         el.style.setProperty('color', '#888', 'important');
         el.style.setProperty('font-size', '16px', 'important');
       }
+
+      if (el.closest('nav')) return; // keep bottom-nav icons
 
       if (text.trim() === '🔧' || text.trim() === '⚙️') {
         var inToolsTab = el.closest('[data-tab="tools"]') || el.closest('#tools-section');
