@@ -332,6 +332,70 @@ svg { color: inherit !important; }
 [class*="chevron"], [class*="triangle"], [class*="caret"] {
   color: #fff !important;
 }
+
+/* === SOLID WHITE TEXT — NO MORE GHOST === */
+p, span, div, li, label, h1, h2, h3, h4, h5, h6 {
+  color: #fff !important;
+}
+/* Muted/secondary — still readable */
+[class*="muted"], [class*="secondary-text"], small {
+  color: #bbb !important;
+}
+/* Placeholder text */
+input::placeholder, textarea::placeholder, select::placeholder {
+  color: #999 !important;
+  opacity: 1 !important;
+}
+/* Input/select text */
+input, textarea, select, [contenteditable] {
+  color: #fff !important;
+  background: #111 !important;
+  border: 1px solid #555 !important;
+  font-size: 14px !important;
+}
+/* Kill teal/green/emerald section heading colors */
+[class*="text-teal"], [class*="text-green"], [class*="text-emerald"],
+[class*="text-cyan"], [class*="text-lime"] {
+  color: #fff !important;
+}
+/* Section heading icons — kill yellow/orange */
+[class*="text-yellow"], [class*="text-orange"], [class*="text-amber"] {
+  color: #ccc !important;
+}
+/* Emoji icons in checklist — hide */
+.step-icon, [class*="step-icon"] {
+  display: none !important;
+}
+/* Checkboxes */
+input[type="checkbox"] {
+  width: 18px !important;
+  height: 18px !important;
+  accent-color: #fff !important;
+  border: 2px solid #fff !important;
+  background: #000 !important;
+  flex-shrink: 0 !important;
+}
+/* Section header clickable area */
+[class*="section-header"], [class*="SectionHeader"], [class*="phase-header"] {
+  cursor: pointer !important;
+  user-select: none !important;
+}
+/* Accordion chevron */
+.accordion-chevron {
+  transition: transform 0.2s ease !important;
+  display: inline-block !important;
+}
+.accordion-chevron.open {
+  transform: rotate(90deg) !important;
+}
+/* Collapsible content */
+.accordion-body {
+  overflow: hidden !important;
+  transition: max-height 0.3s ease !important;
+}
+.accordion-body.collapsed {
+  max-height: 0 !important;
+}
 </style>
 </head>
   <body>
@@ -378,6 +442,109 @@ svg { color: inherit !important; }
   }, 500);
 
   window.__refreshBitOrderSelects = replaceInputsWithSelects;
+})();
+</script>
+<script>
+(function redesignChecklist() {
+  function run() {
+    // 1. Fix all remaining colored text
+    document.querySelectorAll('*').forEach(function(el) {
+      var style = window.getComputedStyle(el);
+      var color = style.color;
+      // Convert teal/green/blue computed colors to white
+      if (color && (
+        color.includes('rgb(20, 184') || // teal-500
+        color.includes('rgb(16, 185') || // green
+        color.includes('rgb(5, 150')  || // emerald
+        color.includes('rgb(59, 130') || // blue-500
+        color.includes('rgb(99, 102') || // indigo
+        color.includes('rgb(14, 165')    // sky
+      )) {
+        el.style.setProperty('color', '#ffffff', 'important');
+      }
+      // Fix very faint grey text (below #888 brightness)
+      if (color) {
+        var match = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+        if (match) {
+          var r = parseInt(match[1]), g = parseInt(match[2]), b = parseInt(match[3]);
+          // If it's a grey that's too faint (all channels close and all below 140)
+          var isGrey = Math.abs(r-g) < 20 && Math.abs(g-b) < 20 && Math.abs(r-b) < 20;
+          if (isGrey && r < 140 && r > 20) {
+            // Boost to at least #bbb
+            el.style.setProperty('color', '#bbbbbb', 'important');
+          }
+        }
+      }
+    });
+
+    // 2. Make section headers collapsible
+    // Find section/phase headers (h2, h3, or divs with section-like role)
+    var sectionHeaders = document.querySelectorAll('h2, h3, [class*="CardHeader"], [class*="card-header"]');
+    sectionHeaders.forEach(function(header) {
+      if (header.dataset.accordionized) return;
+      header.dataset.accordionized = '1';
+
+      // Find the content that follows (sibling or parent's children)
+      var parent = header.closest('[class*="Card"], [class*="card"], section') || header.parentElement;
+      var contentChildren = [];
+      var siblings = Array.from(parent.children);
+      var headerIdx = siblings.indexOf(header);
+      if (headerIdx === -1) {
+        // header might be in a CardHeader div
+        parent = header.closest('[class*="Card"]') || header.parentElement.parentElement;
+        if (parent) {
+          siblings = Array.from(parent.children);
+        }
+      }
+
+      // Add chevron to header
+      if (!header.querySelector('.acc-chevron')) {
+        var chev = document.createElement('span');
+        chev.className = 'acc-chevron';
+        chev.textContent = ' ▶';
+        chev.style.cssText = 'font-size:12px;margin-left:8px;transition:transform 0.2s;display:inline-block;color:#fff;';
+        header.appendChild(chev);
+      }
+
+      // Find body element (CardContent sibling)
+      var body = parent.querySelector('[class*="CardContent"], [class*="card-content"], [class*="card-body"]');
+      if (!body) return;
+
+      var isOpen = true; // start open
+
+      function toggle() {
+        isOpen = !isOpen;
+        body.style.display = isOpen ? '' : 'none';
+        var chev = header.querySelector('.acc-chevron');
+        if (chev) chev.style.transform = isOpen ? 'rotate(90deg)' : 'rotate(0deg)';
+      }
+
+      header.style.cursor = 'pointer';
+      header.addEventListener('click', toggle);
+    });
+
+    // 3. Ensure emoji icons hidden on checklist rows
+    document.querySelectorAll('[class*="text-2xl"], [class*="text-xl"]').forEach(function(el) {
+      var text = el.textContent.trim();
+      // If it's just an emoji, hide it
+      if (/^[\u{1F300}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u.test(text) && text.length <= 3) {
+        el.style.display = 'none';
+      }
+    });
+  }
+
+  // Run after React renders
+  var tries = 0;
+  var iv = setInterval(function() {
+    tries++;
+    run();
+    if (tries > 30) clearInterval(iv);
+  }, 300);
+
+  // Also run on any click (React may re-render)
+  document.addEventListener('click', function() {
+    setTimeout(run, 100);
+  });
 })();
 </script>
   </body>
