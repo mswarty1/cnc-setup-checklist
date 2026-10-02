@@ -461,5 +461,32 @@ summary, details summary {
   document.addEventListener('click', function() { setTimeout(run, 100); });
 })();
 </script>
+<script>
+(function normaliseIcons() {
+  function fix() {
+    // Replace 📋 clipboard emoji used as check icons with ✓
+    document.querySelectorAll('span, button, li').forEach(el => {
+      if (el.children.length === 0 && el.textContent.trim() === '📋') {
+        el.textContent = '✓';
+        el.style.setProperty('color', '#fff', 'important');
+      }
+      // Also catch spans that are just emoji inside checklist items
+      ['✅', '☑️', '☑', '📝'].forEach(emoji => {
+        if (el.children.length === 0 && el.textContent.trim() === emoji) {
+          el.textContent = '✓';
+        }
+      });
+    });
+  }
+
+  fix();
+  let count = 0;
+  const interval = setInterval(() => {
+    fix();
+    if (++count > 20) clearInterval(interval);
+  }, 500);
+  document.addEventListener('click', () => setTimeout(fix, 150));
+})();
+</script>
   </body>
 </html>
