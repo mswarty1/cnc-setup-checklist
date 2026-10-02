@@ -87,315 +87,163 @@ Defaulting to \`null\`.`}dr(Dr,`getInvalidValueError`);var Or=vr,kr=br,Ar=_.forw
 </style>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* === NUCLEAR BLACK & WHITE OVERRIDE === */
-*, *::before, *::after {
-  --background: 0 0% 0% !important;
-  --foreground: 0 0% 100% !important;
-  --card: 0 0% 6% !important;
-  --card-foreground: 0 0% 100% !important;
-  --popover: 0 0% 6% !important;
-  --popover-foreground: 0 0% 100% !important;
-  --primary: 0 0% 100% !important;
-  --primary-foreground: 0 0% 0% !important;
-  --secondary: 0 0% 12% !important;
-  --secondary-foreground: 0 0% 100% !important;
-  --muted: 0 0% 12% !important;
-  --muted-foreground: 0 0% 60% !important;
-  --accent: 0 0% 15% !important;
-  --accent-foreground: 0 0% 100% !important;
-  --destructive: 0 0% 40% !important;
-  --destructive-foreground: 0 0% 100% !important;
-  --border: 0 0% 20% !important;
-  --input: 0 0% 10% !important;
-  --ring: 0 0% 80% !important;
-  --radius: 0.5rem !important;
+/* === MINIMAL MONOCHROME THEME === */
+:root {
+  color-scheme: dark;
 }
-
 html, body, #root {
   background: #000 !important;
   color: #fff !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
-/* Kill ALL blue colors */
-[class*="bg-blue"], [class*="text-blue"], [class*="border-blue"],
-[class*="bg-indigo"], [class*="text-indigo"], [class*="border-indigo"],
-[class*="bg-violet"], [class*="text-violet"],
-[class*="bg-purple"], [class*="text-purple"],
-[class*="bg-sky"], [class*="text-sky"], [class*="border-sky"],
-[class*="bg-cyan"], [class*="text-cyan"],
-[class*="ring-blue"], [class*="ring-indigo"] {
-  background-color: transparent !important;
+/* Nuclear color kill — all Tailwind utility classes */
+[class*="bg-blue"],[class*="bg-indigo"],[class*="bg-violet"],[class*="bg-purple"],
+[class*="bg-sky"],[class*="bg-cyan"],[class*="bg-teal"],[class*="bg-green"],
+[class*="bg-emerald"],[class*="bg-lime"] { background-color: #111 !important; }
+
+[class*="text-blue"],[class*="text-indigo"],[class*="text-violet"],[class*="text-purple"],
+[class*="text-sky"],[class*="text-cyan"],[class*="text-teal"],[class*="text-green"],
+[class*="text-emerald"],[class*="text-lime"] { color: #fff !important; }
+
+[class*="border-blue"],[class*="border-indigo"],[class*="border-sky"],
+[class*="border-teal"],[class*="border-green"] { border-color: #1f1f1f !important; }
+
+[class*="text-yellow"],[class*="text-orange"],[class*="text-amber"] { color: #ccc !important; }
+
+/* All text solid white */
+p, span, div, li, td, th, label, small, em, strong {
   color: #fff !important;
-  border-color: #333 !important;
+}
+h1, h2, h3, h4, h5, h6 {
+  color: #fff !important;
+  font-weight: 700 !important;
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+/* Muted only for truly secondary info */
+[class*="muted"],[class*="secondary"] { color: #999 !important; }
+
+/* Cards / sections */
+[class*="Card"], [class*="card"] {
+  background: #0d0d0d !important;
+  border: 1px solid #1f1f1f !important;
+  border-radius: 4px !important;
 }
 
 /* Buttons */
-button, [role="button"], .btn {
+button, [role="button"] {
   background: #fff !important;
   color: #000 !important;
   border: 1px solid #fff !important;
+  border-radius: 2px !important;
   font-weight: 600 !important;
-  letter-spacing: 0.03em !important;
-  transition: all 0.15s ease !important;
-  border-radius: 6px !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.04em !important;
+  cursor: pointer !important;
 }
 button:hover, [role="button"]:hover {
-  background: #e0e0e0 !important;
-  color: #000 !important;
+  background: #e8e8e8 !important;
 }
-
-/* Ghost/outline/secondary buttons */
-button[class*="ghost"], button[class*="outline"], button[class*="secondary"],
-button[class*="variant-outline"], button[class*="variant-ghost"] {
+/* Ghost/outline/nav buttons */
+button[class*="ghost"], button[class*="outline"], button[class*="variant"],
+nav button, [role="tab"] {
   background: transparent !important;
   color: #fff !important;
-  border: 1px solid #444 !important;
+  border-color: transparent !important;
 }
-button[class*="ghost"]:hover, button[class*="outline"]:hover {
-  background: #1a1a1a !important;
-  border-color: #888 !important;
-}
-
-/* Destructive / danger buttons */
-button[class*="destructive"] {
-  background: #333 !important;
-  color: #fff !important;
-  border-color: #555 !important;
-}
-
-/* Tabs */
-[role="tab"] {
-  color: #666 !important;
-  background: transparent !important;
-  border-bottom: 2px solid transparent !important;
+nav button:hover, [role="tab"]:hover {
+  background: #111 !important;
 }
 [role="tab"][aria-selected="true"], [data-state="active"][role="tab"] {
   color: #fff !important;
-  border-bottom-color: #fff !important;
+  font-weight: 700 !important;
+  border-bottom: 2px solid #fff !important;
   background: transparent !important;
 }
-[role="tablist"] {
-  background: #0a0a0a !important;
-  border-bottom: 1px solid #222 !important;
+[role="tab"]:not([aria-selected="true"]):not([data-state="active"]) {
+  color: #555 !important;
 }
 
-/* Cards */
-[class*="Card"], .card, [class*="card"] {
-  background: #0d0d0d !important;
-  border: 1px solid #222 !important;
+/* Inputs / selects / textareas */
+input, textarea, select {
+  background: #111 !important;
   color: #fff !important;
-}
-
-/* Badges */
-[class*="Badge"], [class*="badge"] {
-  background: #1a1a1a !important;
-  color: #ccc !important;
-  border: 1px solid #333 !important;
-}
-
-/* Inputs, textareas, selects */
-input, textarea, select, [class*="Input"] {
-  background: #0d0d0d !important;
-  color: #fff !important;
-  border: 1px solid #333 !important;
-  border-radius: 6px !important;
+  border: 1px solid #fff !important;
+  border-radius: 2px !important;
+  font-size: 0.85rem !important;
+  padding: 7px 10px !important;
 }
 input:focus, textarea:focus, select:focus {
-  border-color: #fff !important;
   outline: none !important;
+  border-color: #fff !important;
   box-shadow: 0 0 0 1px #fff !important;
 }
 input::placeholder, textarea::placeholder {
-  color: #555 !important;
-}
-
-/* Labels */
-label {
-  color: #bbb !important;
-}
-
-/* Progress bars */
-[role="progressbar"] > * {
-  background: #fff !important;
-}
-[role="progressbar"] {
-  background: #1a1a1a !important;
-}
-
-/* Checkboxes and step indicators */
-[class*="CheckCircle"], [class*="check-circle"],
-svg[class*="check"], .step-done {
-  color: #fff !important;
-}
-
-/* Muted/secondary text */
-[class*="text-muted"], [class*="muted-foreground"],
-p.text-sm, span.text-sm {
-  color: #888 !important;
-}
-
-/* Bottom nav bar */
-nav, [class*="bottom-nav"], footer {
-  background: #0a0a0a !important;
-  border-top: 1px solid #222 !important;
-}
-nav button[class*="active"], nav button[aria-selected="true"] {
-  color: #fff !important;
-}
-nav button {
-  color: #555 !important;
-  background: transparent !important;
-  border: none !important;
-}
-
-/* Alert / dialog */
-[role="alertdialog"], [role="dialog"], [class*="Dialog"] {
-  background: #111 !important;
-  border: 1px solid #333 !important;
-  color: #fff !important;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #555; }
-
-/* Separator */
-[role="separator"], hr {
-  border-color: #222 !important;
-  background: #222 !important;
-}
-
-/* Header/hero area */
-header, [class*="header"] {
-  background: #000 !important;
-  border-bottom: 1px solid #1a1a1a !important;
-}
-
-/* Kill any remaining color utility classes */
-.text-primary { color: #fff !important; }
-.text-secondary { color: #aaa !important; }
-.bg-primary { background: #fff !important; color: #000 !important; }
-.bg-secondary { background: #111 !important; }
-.border-primary { border-color: #fff !important; }
-.text-gray-500, .text-gray-600 { color: #888 !important; }
-.text-gray-300, .text-gray-400 { color: #aaa !important; }
-.bg-gray-100 { background: #111 !important; }
-.bg-gray-200 { background: #1a1a1a !important; }
-.bg-gray-800, .bg-gray-900 { background: #0d0d0d !important; }
-.border-gray-200 { border-color: #222 !important; }
-.border-gray-700 { border-color: #333 !important; }
-
-/* Green/success colors -> white */
-[class*="text-green"], [class*="bg-green"] {
-  color: #fff !important;
-  background-color: transparent !important;
-}
-
-/* Active/selected states */
-[data-state="checked"], [aria-checked="true"] {
-  background: #fff !important;
-  border-color: #fff !important;
-}
-
-/* Toggle/switch */
-[role="switch"][data-state="checked"] {
-  background-color: #fff !important;
-}
-[role="switch"][data-state="unchecked"] {
-  background-color: #333 !important;
-}
-
-/* Inline style overrides for hard-coded colors */
-[style*="background"] { background: #111 !important; }
-[style*="gradient"] { background: #111 !important; }
-[style*="#16A085"], [style*="#8E44AD"], [style*="#2980B9"], [style*="#C0392B"] {
-  background-color: #1a1a1a !important;
-  color: #fff !important;
-}
-
-/* Fix blue text on summary/details/collapsible headings */
-[class*="text-blue"], [class*="text-sky"], [class*="text-indigo"],
-summary, details summary,
-[class*="collapsible"], [class*="Collapsible"] {
-  color: #fff !important;
-}
-
-a, a:visited, a:hover {
-  color: #ccc !important;
-  text-decoration: none !important;
-}
-
-svg { color: inherit !important; }
-[class*="chevron"], [class*="triangle"], [class*="caret"] {
-  color: #fff !important;
-}
-
-/* === SOLID WHITE TEXT — NO MORE GHOST === */
-p, span, div, li, label, h1, h2, h3, h4, h5, h6 {
-  color: #fff !important;
-}
-/* Muted/secondary — still readable */
-[class*="muted"], [class*="secondary-text"], small {
-  color: #bbb !important;
-}
-/* Placeholder text */
-input::placeholder, textarea::placeholder, select::placeholder {
-  color: #999 !important;
+  color: #666 !important;
   opacity: 1 !important;
 }
-/* Input/select text */
-input, textarea, select, [contenteditable] {
-  color: #fff !important;
-  background: #111 !important;
-  border: 1px solid #555 !important;
-  font-size: 14px !important;
-}
-/* Kill teal/green/emerald section heading colors */
-[class*="text-teal"], [class*="text-green"], [class*="text-emerald"],
-[class*="text-cyan"], [class*="text-lime"] {
-  color: #fff !important;
-}
-/* Section heading icons — kill yellow/orange */
-[class*="text-yellow"], [class*="text-orange"], [class*="text-amber"] {
-  color: #ccc !important;
-}
-/* Emoji icons in checklist — hide */
-.step-icon, [class*="step-icon"] {
-  display: none !important;
-}
+option { background: #111 !important; color: #fff !important; }
+
 /* Checkboxes */
 input[type="checkbox"] {
-  width: 18px !important;
-  height: 18px !important;
+  width: 17px !important; height: 17px !important;
   accent-color: #fff !important;
-  border: 2px solid #fff !important;
+  border: 1.5px solid #fff !important;
   background: #000 !important;
   flex-shrink: 0 !important;
 }
-/* Section header clickable area */
-[class*="section-header"], [class*="SectionHeader"], [class*="phase-header"] {
+
+/* Tab bar */
+nav, footer, [class*="bottom"] {
+  background: #000 !important;
+  border-top: 1px solid #1f1f1f !important;
+}
+
+/* Progress bars */
+[role="progressbar"] { background: #111 !important; }
+[role="progressbar"] > * { background: #fff !important; }
+
+/* Separators */
+hr, [role="separator"] {
+  border-color: #1f1f1f !important;
+  background: #1f1f1f !important;
+}
+
+/* Dialogs */
+[role="dialog"], [role="alertdialog"] {
+  background: #0d0d0d !important;
+  border: 1px solid #1f1f1f !important;
+}
+
+/* Badges */
+[class*="Badge"],[class*="badge"] {
+  background: #1a1a1a !important;
+  color: #ccc !important;
+  border: 1px solid #2a2a2a !important;
+}
+
+/* Section headers — bold, no colour background */
+summary, details summary {
+  color: #fff !important;
+  font-weight: 700 !important;
   cursor: pointer !important;
-  user-select: none !important;
 }
-/* Accordion chevron */
-.accordion-chevron {
-  transition: transform 0.2s ease !important;
-  display: inline-block !important;
-}
-.accordion-chevron.open {
-  transform: rotate(90deg) !important;
-}
-/* Collapsible content */
-.accordion-body {
-  overflow: hidden !important;
-  transition: max-height 0.3s ease !important;
-}
-.accordion-body.collapsed {
-  max-height: 0 !important;
-}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #444; }
+
+/* Kill hardcoded hex colour backgrounds that compiled Tailwind injected */
+[style*="background-color: rgb(59"] { background-color: #111 !important; }
+[style*="background-color: rgb(16"] { background-color: #111 !important; }
+[style*="color: rgb(59"] { color: #fff !important; }
+[style*="color: rgb(16"] { color: #fff !important; }
+[style*="color: rgb(20"] { color: #fff !important; }
 </style>
 </head>
   <body>
@@ -451,30 +299,42 @@ input[type="checkbox"] {
     document.querySelectorAll('*').forEach(function(el) {
       var style = window.getComputedStyle(el);
       var color = style.color;
-      // Convert teal/green/blue computed colors to white
+      // Convert any blue/teal/green/indigo/sky computed colors to white
       if (color && (
         color.includes('rgb(20, 184') || // teal-500
-        color.includes('rgb(16, 185') || // green
+        color.includes('rgb(16, 185') || // green-500
         color.includes('rgb(5, 150')  || // emerald
         color.includes('rgb(59, 130') || // blue-500
+        color.includes('rgb(96, 165') || // blue-400
         color.includes('rgb(99, 102') || // indigo
-        color.includes('rgb(14, 165')    // sky
+        color.includes('rgb(14, 165') || // sky
+        color.includes('rgb(34, 197') || // green-400
+        color.includes('rgb(74, 222')    // green-300
       )) {
         el.style.setProperty('color', '#ffffff', 'important');
       }
-      // Fix very faint grey text (below #888 brightness)
+      // Fix very faint grey text — boost anything below #888 to #bbb
       if (color) {
         var match = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
         if (match) {
           var r = parseInt(match[1]), g = parseInt(match[2]), b = parseInt(match[3]);
-          // If it's a grey that's too faint (all channels close and all below 140)
+          // Grey: all channels close together
           var isGrey = Math.abs(r-g) < 20 && Math.abs(g-b) < 20 && Math.abs(r-b) < 20;
-          if (isGrey && r < 140 && r > 20) {
-            // Boost to at least #bbb
+          // Boost if faint grey (below 136 = #888) but not near-black (above 20)
+          if (isGrey && r < 136 && r > 20) {
             el.style.setProperty('color', '#bbbbbb', 'important');
           }
         }
       }
+    });
+
+    // 1b. Clear any coloured backgrounds / padding on headings
+    document.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(function(h) {
+      h.style.removeProperty('background-color');
+      h.style.removeProperty('background');
+      h.style.setProperty('color','#ffffff','important');
+      h.style.setProperty('font-weight','700','important');
+      h.style.setProperty('padding','0','important');
     });
 
     // 2. Make section headers collapsible
