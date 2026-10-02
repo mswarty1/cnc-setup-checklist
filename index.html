@@ -250,46 +250,90 @@ summary, details summary {
     <div id="root"></div>
   <script>
 (function patchBitOrderInputs() {
+  var ORD = ['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th'];
+  var uid = 0;
+
   function getTools() {
-    try { return JSON.parse(localStorage.getItem('cnc_tools') || '[]'); } catch(e) { return []; }
+    try { return JSON.parse(localStorage.getItem('cnc_tools') || '[]'); } catch (e) { return []; }
+  }
+  function diaText(d) {
+    if (d === undefined || d === null || d === '') return '';
+    var s = String(d).trim();
+    return /^[\d.]+$/.test(s) ? s + ' mm' : s;
+  }
+  function label(t) {
+    var n = t.name || t.type || 'Tool', d = diaText(t.dia);
+    return n + (d ? ' (' + d + ')' : '');
+  }
+  // Set a React-controlled input's value so React sees the change.
+  function setVal(inp, v) {
+    var proto = inp.tagName === 'TEXTAREA' ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype;
+    var setter = Object.getOwnPropertyDescriptor(proto, 'value').set;
+    setter.call(inp, v);
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+  function addToOrder(main, text) {
+    text = (text || '').trim();
+    if (!text) return;
+    var cur = (main.value || '').trim();
+    var n = (cur.match(/\b\d+(?:st|nd|rd|th):/g) || []).length;
+    var next = (ORD[n] || (n + 1) + 'th') + ': ' + text;
+    setVal(main, cur ? cur + '  ' + next : next);
   }
 
-  function buildOptions(tools) {
-    var opts = '<option value="">-- Select tool --</option>';
-    tools.forEach(function(t) {
-      var label = (t.name || t.type || 'Tool') + (t.dia ? ' (' + t.dia + '")' : '');
-      opts += '<option value="' + (t.id || '') + '">' + label + '</option>';
-    });
-    return opts;
+  var CSS = 'background:#0d0d0d;color:#fff;border:1px solid #444;border-radius:6px;padding:8px 10px;font-size:14px;min-height:40px;';
+
+  function build(main) {
+    var id = 'bo-tools-' + (++uid);
+    var box = document.createElement('div');
+    box.className = 'bo-picker';
+    box.style.cssText = 'margin-top:8px;';
+    box.innerHTML =
+      '<div style="display:flex;gap:6px;align-items:stretch">' +
+        '<input type="text" class="bo-search" list="' + id + '" autocomplete="off" placeholder="Search Tool Database..." style="flex:1;min-width:0;' + CSS + '">' +
+        '<button type="button" class="bo-add" style="padding:0 14px;border-radius:6px;font-weight:700;font-size:12px;letter-spacing:.05em">+ ADD</button>' +
+      '</div>' +
+      '<datalist id="' + id + '"></datalist>' +
+      '<div class="bo-hint" style="font-size:11px;color:#888;margin-top:4px"></div>';
+    var search = box.querySelector('.bo-search');
+    function commit() {
+      var v = search.value.trim();
+      if (!v) return;
+      var hit = getTools().filter(function (t) { return label(t).toLowerCase() === v.toLowerCase(); })[0];
+      addToOrder(main, hit ? label(hit) : v);
+      search.value = '';
+    }
+    box.querySelector('.bo-add').addEventListener('click', function (e) { e.preventDefault(); commit(); });
+    search.addEventListener('change', commit);
+    search.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); commit(); } });
+    main.insertAdjacentElement('afterend', box);
+    return box;
   }
 
-  function replaceInputsWithSelects() {
+  function attach() {
     var tools = getTools();
-    if (tools.length === 0) return;
-
-    var allInputs = document.querySelectorAll('input[type="text"], input:not([type])');
-    allInputs.forEach(function(inp) {
-      var parent = inp.closest('div, span, label, td');
-      if (!parent) return;
-      var text = parent.textContent || '';
-      if (!/(1st|2nd|3rd|4th|5th|6th)/.test(text)) return;
-
-      var sel = document.createElement('select');
-      sel.innerHTML = buildOptions(tools);
-      sel.style.cssText = 'background:#0d0d0d;color:#fff;border:1px solid #444;border-radius:6px;padding:6px 8px;width:100%;font-size:14px;';
-      sel.value = inp.value || '';
-      inp.parentNode.replaceChild(sel, inp);
+    document.querySelectorAll('textarea[placeholder^="1st:"], input[placeholder^="1st:"]').forEach(function (main) {
+      var box = main.nextElementSibling;
+      if (!box || !box.classList || !box.classList.contains('bo-picker')) box = build(main);
+      var dl = box.querySelector('datalist');
+      var html = tools.map(function (t) {
+        return '<option value="' + label(t).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;') + '"></option>';
+      }).join('');
+      if (dl.innerHTML !== html) dl.innerHTML = html;
+      box.querySelector('.bo-hint').textContent = tools.length
+        ? 'Type to search your Tool Database, then tap a match (or + ADD). Each pick is added to the list above in order.'
+        : 'No tools in your Tool Database yet. Import one in the Tools tab.';
     });
   }
 
-  var tries = 0;
-  var interval = setInterval(function() {
-    tries++;
-    replaceInputsWithSelects();
-    if (tries > 20) clearInterval(interval);
-  }, 500);
-
-  window.__refreshBitOrderSelects = replaceInputsWithSelects;
+  var queued = false;
+  function schedule() {
+    if (queued) return; queued = true;
+    requestAnimationFrame(function () { queued = false; attach(); });
+  }
+  new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true });
+  attach();
+  window.__refreshBitOrderSelects = attach; // kept: called after tool imports
 })();
 </script>
 <script>
