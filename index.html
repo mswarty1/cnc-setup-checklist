@@ -362,6 +362,16 @@ html body #cl-panel tr.cl-hi td { background:#fff !important; color:#000 !import
     if (list.innerHTML !== html) list.innerHTML = html;
   }
 
+  function grow(t) {
+    t.style.setProperty('line-height', '1.7', 'important');
+    t.style.setProperty('font-size', '15px', 'important');
+    t.style.setProperty('overflow', 'hidden', 'important');
+    t.style.setProperty('resize', 'none', 'important');
+    t.style.setProperty('height', 'auto', 'important');
+    t.style.setProperty('height', Math.max(t.scrollHeight + 4, 72) + 'px', 'important');
+    if (!t.__boGrow) { t.__boGrow = 1; t.addEventListener('input', function () { grow(t); }); }
+  }
+
   var CSS = 'background:#0d0d0d;color:#fff;border:1px solid #444;border-radius:6px;padding:8px 10px;font-size:14px;min-height:40px;';
 
   function build(main) {
@@ -396,14 +406,14 @@ html body #cl-panel tr.cl-hi td { background:#fff !important; color:#000 !import
     document.querySelectorAll('textarea[placeholder^="1st:"], input[placeholder^="1st:"]').forEach(function (main) {
       var box = main.nextElementSibling;
       if (!box || !box.classList || !box.classList.contains('bo-picker')) box = build(main);
-      renderList(main, box);
+      grow(main);
       var dl = box.querySelector('datalist');
       var html = tools.map(function (t) {
         return '<option value="' + label(t).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;') + '"></option>';
       }).join('');
       if (dl.innerHTML !== html) dl.innerHTML = html;
       box.querySelector('.bo-hint').textContent = tools.length
-        ? 'Type to search your Tool Database, then tap a match (or + ADD). Each pick is added to the list below in order.'
+        ? 'Type to search your Tool Database, then tap a match (or + ADD). Each pick is added to the list above, one per line.'
         : 'No tools in your Tool Database yet. Import one in the Tools tab.';
     });
   }
