@@ -276,6 +276,11 @@ html body nav button[class] { color:#fff !important; background:transparent !imp
 html body nav button[class][class*="text-blue"] { background:#fff !important; color:#000 !important; border-radius:0 !important; }
 html body nav button[class] * { color:inherit !important; }
 html body nav.cl-open button[class][class*="text-blue"]:not(#cl-navbtn) { background:transparent !important; color:#fff !important; }
+/* nav icons: one size, one baseline */
+html body nav button[class] { display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; gap:3px !important; padding:8px 0 10px !important; min-height:62px !important; }
+html body nav button[class] > span:first-child { display:flex !important; align-items:center !important; justify-content:center !important; width:26px !important; height:26px !important; line-height:1 !important; }
+html body nav button[class] > span:nth-child(2) { line-height:1 !important; font-size:10px !important; }
+html body nav .nv { width:24px; height:24px; display:block; }
 html body .bx-dark { color:#000 !important; }
 html body .bx { color:#fff !important; }
 /* chipload calculator */
@@ -574,6 +579,43 @@ html body #cl-panel tr.cl-hi td { background:#fff !important; color:#000 !import
     if (++count > 20) clearInterval(interval);
   }, 500);
   document.addEventListener('click', () => setTimeout(fix, 150));
+})();
+</script>
+<script id="nav-icons">
+(function navIcons() {
+  var P = {
+    HOME: '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>',
+    CHECKLIST: '<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>',
+    HISTORY: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    TOOLS: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>',
+    SETTINGS: '<path d="M4 6h8M18 6h2M4 12h2M12 12h8M4 18h10M20 18h0"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/>',
+    CHIPLOAD: '<path d="M3.5 17a9 9 0 1 1 17 0"/><path d="M12 14l4-4"/><circle cx="12" cy="14" r="1"/>'
+  };
+  function svg(inner) {
+    return '<svg class="nv" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + inner + '</svg>';
+  }
+  function run() {
+    var nav = document.querySelector('nav.fixed.bottom-0');
+    if (!nav) return;
+    nav.querySelectorAll('button').forEach(function (b) {
+      var sp = b.querySelectorAll(':scope > span');
+      if (sp.length < 2) return;
+      var lab = (sp[1].textContent || '').trim().toUpperCase();
+      var p = P[lab];
+      if (!p) return;
+      var ic = sp[0];
+      if (ic.getAttribute('data-nv') === lab && ic.querySelector('svg')) return;
+      ic.removeAttribute('style');
+      ic.innerHTML = svg(p);
+      ic.setAttribute('data-nv', lab);
+    });
+  }
+  run();
+  var q = false;
+  new MutationObserver(function () {
+    if (q) return; q = true;
+    requestAnimationFrame(function () { q = false; run(); });
+  }).observe(document.body, { childList: true, subtree: true, characterData: true });
 })();
 </script>
   <!-- ===== CHIPLOAD CALCULATOR (drop-in patch) =====
