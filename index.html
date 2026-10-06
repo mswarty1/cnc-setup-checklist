@@ -323,7 +323,43 @@ html body #cl-panel tr.cl-hi td { background:#fff !important; color:#000 !import
     var cur = (main.value || '').trim();
     var n = (cur.match(/\b\d+(?:st|nd|rd|th):/g) || []).length;
     var next = (ORD[n] || (n + 1) + 'th') + ': ' + text;
-    setVal(main, cur ? cur + '  ' + next : next);
+    setVal(main, cur ? cur + '\n' + next : next);
+  }
+
+
+  (function(){ var st=document.createElement('style'); st.id='bo-list-css';
+    st.textContent='html body .bo-list > div, html body .bo-list > div span { color:#000 !important; background:#fff !important; } html body .bo-list .bo-del { color:#000 !important; background:#fff !important; border:1px solid #000 !important; }';
+    document.head.appendChild(st); })();
+  var ITEM = /\d+(?:st|nd|rd|th):\s*([\s\S]*?)(?=\s*\d+(?:st|nd|rd|th):|\s*$)/g;
+  function parseItems(v) {
+    var out = [], m; ITEM.lastIndex = 0;
+    while ((m = ITEM.exec(v || ''))) { var s = m[1].trim(); if (s) out.push(s); }
+    return out;
+  }
+  function writeItems(main, items) {
+    setVal(main, items.map(function (s, i) { return (ORD[i] || (i + 1) + 'th') + ': ' + s; }).join('\n'));
+  }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+  function renderList(main, box) {
+    var list = box.nextElementSibling;
+    if (!list || !list.classList || !list.classList.contains('bo-list')) {
+      list = document.createElement('div'); list.className = 'bo-list';
+      list.style.cssText = 'margin-top:8px;display:flex;flex-direction:column;gap:6px;';
+      box.insertAdjacentElement('afterend', list);
+      list.addEventListener('click', function (e) {
+        var b = e.target.closest('.bo-del'); if (!b) return;
+        e.preventDefault();
+        var its = parseItems(main.value); its.splice(+b.getAttribute('data-i'), 1); writeItems(main, its);
+      });
+    }
+    var items = parseItems(main.value);
+    var html = items.map(function (s, i) {
+      return '<div style="display:flex;align-items:center;gap:8px;border:1px solid #bbb;border-radius:6px;padding:6px 8px;background:#fff;color:#000;font-size:14px">' +
+        '<span style="font-weight:700;min-width:34px">' + (ORD[i] || (i + 1) + 'th') + '</span>' +
+        '<span style="flex:1;min-width:0;word-break:break-word">' + esc(s) + '</span>' +
+        '<button type="button" class="bo-del" data-i="' + i + '" aria-label="Remove" style="padding:2px 10px;border-radius:6px;font-weight:700">✕</button></div>';
+    }).join('');
+    if (list.innerHTML !== html) list.innerHTML = html;
   }
 
   var CSS = 'background:#0d0d0d;color:#fff;border:1px solid #444;border-radius:6px;padding:8px 10px;font-size:14px;min-height:40px;';
@@ -360,13 +396,14 @@ html body #cl-panel tr.cl-hi td { background:#fff !important; color:#000 !import
     document.querySelectorAll('textarea[placeholder^="1st:"], input[placeholder^="1st:"]').forEach(function (main) {
       var box = main.nextElementSibling;
       if (!box || !box.classList || !box.classList.contains('bo-picker')) box = build(main);
+      renderList(main, box);
       var dl = box.querySelector('datalist');
       var html = tools.map(function (t) {
         return '<option value="' + label(t).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;') + '"></option>';
       }).join('');
       if (dl.innerHTML !== html) dl.innerHTML = html;
       box.querySelector('.bo-hint').textContent = tools.length
-        ? 'Type to search your Tool Database, then tap a match (or + ADD). Each pick is added to the list above in order.'
+        ? 'Type to search your Tool Database, then tap a match (or + ADD). Each pick is added to the list below in order.'
         : 'No tools in your Tool Database yet. Import one in the Tools tab.';
     });
   }
