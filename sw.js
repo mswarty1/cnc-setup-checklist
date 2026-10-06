@@ -1,5 +1,5 @@
-var CACHE = 'cnc-checklist-v1';
-var PRECACHE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './vendor/html2pdf.bundle.min.js'];
+var CACHE = 'cnc-checklist-v2';
+var PRECACHE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './vendor/html2pdf.bundle.min.js', './vendor/sql-wasm.js', './vendor/sql-wasm.wasm'];
 
 self.addEventListener('install', function (e) {
   self.skipWaiting();
