@@ -14,9 +14,9 @@ It is based on a third-party CNC router project setup checklist and chipload cal
 
 This is a community tool, built to be useful, not to make money.
 
-## Roadmap: Android app
+## What's next
 
-After a feedback period, the plan is to release this as an Android app, built with the support and participation of the CNC community. It will stay ad-free and free of in-app fees or charges. Your feedback, ideas and testing now will shape what the app becomes. If you would like to take part, please open an issue (link at the bottom).
+The web version is the main product and works on every device. After a feedback period, an Android app may follow if the CNC community wants one, for example for easier Play Store discovery and file handling. Either way, it would stay free, with no ads or in-app fees. Your feedback, ideas and testing now will shape what happens next. To take part, please open an issue (link at the bottom).
 
 ---
 
@@ -69,4 +69,4 @@ The `samples/` folder holds example tool libraries you can import to try the Too
 
 ## Feedback and getting involved
 
-Found a bug, have an idea, or want to help shape the Android app? Open an issue: https://github.com/mswarty1/cnc-setup-checklist/issues/new
+Found a bug, have an idea, or want to help shape what comes next? Open an issue: https://github.com/mswarty1/cnc-setup-checklist/issues/new
