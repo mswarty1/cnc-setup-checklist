@@ -6,6 +6,18 @@ A free, single-page web app that walks you through a repeatable CNC router job s
 
 It is based on a third-party CNC router project setup checklist and chipload calculator, and is shared for feedback.
 
+## Free for everyone
+
+- **No ads.**
+- **No in-app purchases, fees or subscriptions.**
+- **No accounts or tracking.** Your data stays on your device.
+
+This is a community tool, built to be useful, not to make money.
+
+## Roadmap: Android app
+
+After a feedback period, the plan is to release this as an Android app, built with the support and participation of the CNC community. It will stay ad-free and free of in-app fees or charges. Your feedback, ideas and testing now will shape what the app becomes. If you would like to take part, please open an issue (link at the bottom).
+
 ---
 
 ## Features
@@ -55,6 +67,6 @@ The app is built around the original setup checklist rather than a made-up list,
 
 The `samples/` folder holds example tool libraries you can import to try the Tools tab.
 
-## Feedback
+## Feedback and getting involved
 
-Found a bug or have an idea? Open an issue: https://github.com/mswarty1/cnc-setup-checklist/issues/new
+Found a bug, have an idea, or want to help shape the Android app? Open an issue: https://github.com/mswarty1/cnc-setup-checklist/issues/new
